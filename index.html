@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mengenal Antariksa - Eksplorasi Alam Semesta</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-space-blue text-text-light min-h-screen">
+    <!-- Particle Background -->
+    <div
+      id="particles"
+      class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]"
+    ></div>
+
+    <!-- Header & Navigation -->
+    <!-- Header & Navigation -->
+    <header
+      class="sticky top-0 z-50 bg-gradient-to-b from-space-blue/95 to-space-blue/85 backdrop-blur-lg border-b border-primary-blue/20 py-5"
+    >
+      <div class="container mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0"
+        >
+          <!-- Logo -->
+          <div class="flex items-center gap-4">
+            <div class="text-primary-blue text-3xl">
+              <i class="fas fa-globe-americas"></i>
+            </div>
+            <h1
+              class="font-orbitron font-bold text-2xl bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent tracking-wide"
+            >
+              Mengenal Antariksa
+            </h1>
+          </div>
+
+          <!-- Mobile Menu Toggle -->
+          <button id="menuToggle" class="md:hidden text-primary-blue text-2xl">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Navigation -->
+          <nav class="w-full md:w-auto">
+            <ul
+              id="navMenu"
+              class="flex flex-col md:flex-row items-center gap-4 md:gap-8"
+            >
+              <li class="w-full md:w-auto">
+                <a
+                  href="#"
+                  class="flex items-center gap-2 text-lg px-4 py-2 rounded-md bg-primary-blue/15 text-primary-blue"
+                >
+                  <i class="fas fa-home"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+
+              <!-- Search Input Section -->
+              <li class="relative w-full md:w-auto">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-search text-primary-blue"></i>
+                  <!-- Search Input -->
+                  <div class="relative group">
+                    <input
+                      type="text"
+                      id="searchInput"
+                      placeholder="Cari artikel atau topik..."
+                      class="w-full md:w-64 px-4 py-2 bg-space-light/70 border border-primary-blue/30 rounded-lg text-text-light placeholder-blue-300 focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/30 transition-all duration-300"
+                    />
+                    <!-- Search Results Dropdown -->
+                    <div
+                      id="searchResults"
+                      class="absolute top-full mt-2 w-full bg-space-light/95 backdrop-blur-lg rounded-lg border border-primary-blue/20 shadow-xl opacity-0 invisible transition-all duration-300 transform translate-y-2 z-50"
+                    >
+                      <div class="p-4">
+                        <p class="text-blue-300 text-sm mb-2">
+                          Hasil pencarian:
+                        </p>
+                        <ul id="resultsList" class="space-y-2">
+                          <!-- Hasil pencarian akan muncul di sini via JavaScript -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Search Button -->
+                  <button
+                    id="searchButton"
+                    class="px-4 py-2 bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue rounded-lg transition-colors border border-primary-blue/30"
+                  >
+                    Cari
+                  </button>
+                </div>
+              </li>
+
+              <!-- Pengenalan Antariksa Dropdown -->
+              <li class="relative w-full md:w-auto group">
+                <a
+                  href="#"
+                  class="pengenalan-toggle flex items-center justify-between gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+                >
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-globe"></i>
+                    <span>Pengenalan Antariksa</span>
+                  </div>
+                  <i class="fas fa-chevron-down text-sm"></i>
+                </a>
+                <!-- Dropdown Menu -->
+                <ul
+                  class="pengenalan-dropdown absolute left-0 top-full mt-2 w-48 bg-space-light/95 backdrop-blur-lg rounded-lg border border-primary-blue/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50"
+                >
+                  <li>
+                    <a
+                      href="#pengenalan"
+                      class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors"
+                    >
+                      <i class="fas fa-info-circle"></i>
+                      <span>Pengenalan Antariksa</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#tata-surya"
+                      class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors"
+                    >
+                      <i class="fas fa-solar-system"></i>
+                      <span>Sistem Tata Surya</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#gerhana"
+                      class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors"
+                    >
+                      <i class="fas fa-sun"></i>
+                      <span>Gerhana Matahari</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Artikel -->
+              <li class="w-full md:w-auto">
+                <a
+                  href="artikel.html"
+                  class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+                >
+                  <i class="fas fa-book"></i>
+                  <span>Artikel</span>
+                </a>
+              </li>
+
+              <!-- Galeri -->
+              <li class="w-full md:w-auto">
+                <a
+                  href="galeri.html"
+                  class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+                >
+                  <i class="fas fa-images"></i>
+                  <span>Galeri</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <div
+        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?q=80&w=1471&auto=format&fit=crop')] bg-cover bg-center opacity-15"
+      ></div>
+      <div class="container mx-auto px-4 text-center animate-fade-in">
+        <h1
+          class="font-orbitron font-bold text-4xl md:text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent leading-tight"
+        >
+          Antariksa Di Sekitar Kita
+        </h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-blue-100">
+          Jelajahi misteri alam semesta, mulai dari tata surya kita hingga
+          galaksi yang jauh. Temukan fakta menarik tentang planet, bintang,
+          nebula, dan fenomena antariksa lainnya yang membentuk kosmos yang kita
+          huni.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4">
+      <!-- Section 1: Mengenal Alam Semesta -->
+      <section class="py-16 border-t border-primary-blue/10 animate-slide-up">
+        <h2
+          class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-12 pb-4 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-primary-blue after:to-transparent"
+        >
+          Mengenal Alam Semesta
+        </h2>
+
+        <div class="space-y-6 mb-12">
+          <p class="text-lg leading-relaxed">
+            Antariksa, atau yang lebih dikenal sebagai alam semesta, adalah
+            segala sesuatu yang ada—seluruh ruang, waktu, materi, dan energi.
+            Dari planet-planet di tata surya kita hingga galaksi-galaksi yang
+            berjarak miliaran tahun cahaya, alam semesta adalah tempat yang luas
+            dan penuh misteri yang terus menggugah rasa ingin tahu manusia.
+          </p>
+          <p class="text-lg leading-relaxed">
+            Dalam beberapa dekade terakhir, kemajuan teknologi telah
+            memungkinkan kita untuk menjelajahi antariksa dengan cara yang
+            sebelumnya tidak terbayangkan. Teleskop canggih seperti Hubble dan
+            James Webb telah mengungkap gambar-gambar menakjubkan dari sudut
+            terjauh alam semesta, sementara misi luar angkasa berawak dan
+            robotik terus memperluas batas pengetahuan kita tentang kosmos.
+          </p>
+        </div>
+
+        <!-- Image Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <!-- Card 1: Galaksi Bima Sakti -->
+          <div
+            class="group bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl overflow-hidden border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-blue/10"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                alt="Galaksi Bima Sakti"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-orbitron text-xl text-primary-blue mb-3">
+                Galaksi Bima Sakti
+              </h3>
+              <p class="text-blue-100">
+                Rumah bagi tata surya kita, Bima Sakti adalah galaksi spiral
+                dengan diameter sekitar 100.000 tahun cahaya.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: Matahari -->
+          <div
+            class="group bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl overflow-hidden border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-blue/10"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80"
+                alt="Matahari"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-orbitron text-xl text-primary-blue mb-3">
+                Matahari
+              </h3>
+              <p class="text-blue-100">
+                Bintang di pusat tata surya kita yang menyediakan energi bagi
+                kehidupan di Bumi.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: Planet Saturnus -->
+          <div
+            class="group bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl overflow-hidden border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-blue/10"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                alt="Planet Saturnus"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-orbitron text-xl text-primary-blue mb-3">
+                Planet Saturnus
+              </h3>
+              <p class="text-blue-100">
+                Planet keenam dari Matahari yang terkenal dengan sistem
+                cincinnya yang megah.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-lg leading-relaxed">
+          Mempelajari antariksa bukan hanya tentang memahami benda-benda langit,
+          tetapi juga tentang mengeksplorasi asal-usul kita sendiri. Unsur-unsur
+          yang membentuk tubuh kita—karbon, nitrogen, oksigen—dihasilkan di
+          dalam inti bintang yang meledak miliaran tahun yang lalu. Dalam arti
+          yang sangat nyata, kita adalah anak-anak bintang, terhubung dengan
+          kosmos dalam cara yang mendasar.
+        </p>
+      </section>
+
+      <!-- Section 2: Fenomena Antariksa -->
+      <section class="py-16 border-t border-primary-blue/10 animate-slide-up">
+        <h2
+          class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-12 pb-4 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-primary-blue after:to-transparent"
+        >
+          Fenomena Antariksa Menakjubkan
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Feature 1: Gerhana Matahari -->
+          <div
+            class="bg-space-light/70 rounded-xl p-8 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center"
+          >
+            <div class="text-primary-blue text-4xl mb-6">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h3 class="font-orbitron text-2xl mb-4">Gerhana Matahari</h3>
+            <p class="text-blue-100">
+              Fenomena alam ketika Bulan berada di antara Bumi dan Matahari,
+              sehingga menghalangi cahaya Matahari sepenuhnya atau sebagian.
+            </p>
+          </div>
+
+          <!-- Feature 2: Supernova -->
+          <div
+            class="bg-space-light/70 rounded-xl p-8 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center"
+          >
+            <div class="text-primary-blue text-4xl mb-6">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3 class="font-orbitron text-2xl mb-4">Supernova</h3>
+            <p class="text-blue-100">
+              Ledakan dahsyat yang menandai kematian sebuah bintang masif, yang
+              untuk sesaat dapat bersinar lebih terang dari seluruh galaksi.
+            </p>
+          </div>
+
+          <!-- Feature 3: Hujan Meteor -->
+          <div
+            class="bg-space-light/70 rounded-xl p-8 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center"
+          >
+            <div class="text-primary-blue text-4xl mb-6">
+              <i class="fas fa-meteor"></i>
+            </div>
+            <h3 class="font-orbitron text-2xl mb-4">Hujan Meteor</h3>
+            <p class="text-blue-100">
+              Fenomena ketika sejumlah meteor terlihat bersinar di langit malam,
+              berasal dari puing-puing komet yang memasuki atmosfer Bumi.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Anchor Sections untuk dropdown Pengenalan Antariksa -->
+      <section id="pengenalan" class="py-16 border-t border-primary-blue/10">
+        <div class="container mx-auto px-4">
+          <h2
+            class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-8"
+          >
+            Pengenalan Antariksa
+          </h2>
+          <div class="max-w-3xl mx-auto">
+            <p class="text-lg leading-relaxed mb-6">
+              Antariksa, atau ruang angkasa, adalah area di luar atmosfer Bumi
+              yang terdiri dari ruang hampa udara dan berbagai benda langit
+              seperti bintang, planet, galaksi, dan materi antarbintang.
+            </p>
+            <p class="text-lg leading-relaxed">
+              Studi tentang antariksa disebut astronomi, yang telah berkembang
+              pesat sejak penemuan teleskop. Dengan teknologi modern, kita dapat
+              mengamati objek yang berjarak miliaran tahun cahaya.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tata-surya" class="py-16 border-t border-primary-blue/10">
+        <div class="container mx-auto px-4">
+          <h2
+            class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-8"
+          >
+            Sistem Tata Surya
+          </h2>
+          <div class="max-w-3xl mx-auto">
+            <p class="text-lg leading-relaxed mb-6">
+              Tata Surya adalah sistem planet yang terdiri dari Matahari sebagai
+              pusatnya dan benda-benda langit yang mengitarinya, termasuk 8
+              planet, bulan, asteroid, komet, dan benda langit lainnya.
+            </p>
+            <p class="text-lg leading-relaxed">
+              Planet-planet dalam tata surya kita adalah Merkurius, Venus, Bumi,
+              Mars, Jupiter, Saturnus, Uranus, dan Neptunus. Setiap planet
+              memiliki karakteristik unik dan sistem orbitnya sendiri.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="gerhana" class="py-16 border-t border-primary-blue/10">
+        <div class="container mx-auto px-4">
+          <h2
+            class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-8"
+          >
+            Gerhana Matahari
+          </h2>
+          <div class="max-w-3xl mx-auto">
+            <p class="text-lg leading-relaxed mb-6">
+              Gerhana matahari terjadi ketika Bulan berada di antara Bumi dan
+              Matahari, sehingga menghalangi sebagian atau seluruh cahaya
+              Matahari. Fenomena ini hanya terjadi pada fase bulan baru.
+            </p>
+            <p class="text-lg leading-relaxed">
+              Ada tiga jenis gerhana matahari: gerhana total, gerhana sebagian,
+              dan gerhana cincin. Setiap jenis memberikan pengalaman visual yang
+              berbeda dan hanya terlihat dari area tertentu di Bumi.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="mt-20 bg-gradient-to-t from-space-blue to-space-light/50 border-t border-primary-blue/20 pt-16 pb-8"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <!-- Column 1: About -->
+          <div>
+            <h3 class="font-orbitron text-2xl text-primary-blue mb-6">
+              Mengenal Antariksa
+            </h3>
+            <p class="text-blue-100">
+              Portal edukasi untuk mengenal alam semesta di sekitar kita. Mari
+              bersama menjelajahi luar angkasa yang luas ini.
+            </p>
+          </div>
+
+          <!-- Column 2: Menu -->
+          <div>
+            <h3 class="font-orbitron text-2xl text-primary-blue mb-6">
+              Menu Utama
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-chevron-right text-xs"></i> Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-chevron-right text-xs"></i> Tata Surya</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-chevron-right text-xs"></i> Gerhana
+                  Matahari</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-chevron-right text-xs"></i> Artikel</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Contact -->
+          <div>
+            <h3 class="font-orbitron text-2xl text-primary-blue mb-6">
+              Kontak
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-3 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-envelope"></i> #</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-3 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-phone"></i> +62</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-3 text-blue-100 hover:text-primary-blue transition-colors"
+                  ><i class="fas fa-map-marker-alt"></i> Depok, Indonesia</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="pt-8 border-t border-primary-blue/10 text-center">
+          <p class="text-blue-200">
+            &copy; 2026 Mengenal Antariksa | Dibuat untuk pengetahuan dan tugas
+            IPAS Smk Taruna Bhakti X RPL 4
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

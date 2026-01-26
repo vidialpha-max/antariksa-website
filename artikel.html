@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel Antariksa - Mengenal Antariksa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'space-blue': '#0a0e17',
+                        'space-light': '#1a1f3a',
+                        'primary-blue': '#4dabff',
+                        'primary-purple': '#a855f7',
+                        'text-light': '#e0f0ff',
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'exo': ['Exo 2', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Exo 2', sans-serif;
+        }
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        body {
+            background-color: #0a0e17;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(113, 11, 143, 0.1) 0%, transparent 20%);
+        }
+    </style>
+</head>
+<body class="bg-space-blue text-text-light min-h-screen">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-gradient-to-b from-space-blue/95 to-space-blue/85 backdrop-blur-lg border-b border-primary-blue/20 py-5">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <div class="text-primary-blue text-3xl">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h1 class="font-orbitron font-bold text-2xl bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent tracking-wide">
+                        Mengenal Antariksa
+                    </h1>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="w-full md:w-auto">
+                    <ul class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+                        <li class="w-full md:w-auto">
+                            <a href="index.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        
+                        <li class="w-full md:w-auto">
+                            <a href="#" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md bg-primary-blue/15 text-primary-blue">
+                                <i class="fas fa-book"></i>
+                                <span>Artikel</span>
+                            </a>
+                        </li>
+                        
+                        <li class="w-full md:w-auto">
+                            <a href="galeri.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
+                                <i class="fas fa-images"></i>
+                                <span>Galeri</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-20">
+        <section class="max-w-4xl mx-auto">
+            <h1 class="font-orbitron text-4xl md:text-5xl text-center text-primary-blue mb-8">
+                Artikel Antariksa
+            </h1>
+            
+            <div class="bg-space-light/50 rounded-xl p-8 border border-primary-blue/20">
+                <p class="text-xl text-center text-blue-300 mb-8">
+                    Halaman artikel sedang dalam pengembangan. Akan segera hadir artikel-artikel menarik seputar antariksa!
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Artikel Preview 1 -->
+                    <div class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-lg p-6 border border-primary-blue/10">
+                        <h3 class="font-orbitron text-xl text-primary-blue mb-3">Mengenal Tata Surya</h3>
+                        <p class="text-blue-200 mb-4">Penjelasan lengkap tentang sistem tata surya kita dan planet-planetnya.</p>
+                        <span class="text-sm text-blue-400">Coming Soon</span>
+                    </div>
+                    
+                    <!-- Artikel Preview 2 -->
+                    <div class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-lg p-6 border border-primary-blue/10">
+                        <h3 class="font-orbitron text-xl text-primary-blue mb-3">Fenomena Gerhana</h3>
+                        <p class="text-blue-200 mb-4">Mengapa gerhana terjadi dan jenis-jenis gerhana matahari dan bulan.</p>
+                        <span class="text-sm text-blue-400">Coming Soon</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue rounded-lg transition-colors border border-primary-blue/30">
+                        <i class="fas fa-arrow-left"></i>
+                        Kembali ke Beranda
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="mt-20 bg-gradient-to-t from-space-blue to-space-light/50 border-t border-primary-blue/20 pt-16 pb-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="pt-8 border-t border-primary-blue/10">
+                <p class="text-blue-200">
+                    &copy; 2026 Mengenal Antariksa | 
+                    Dibuat untuk pengetahuan dan tugas IPAS Smk Taruna Bhakti X RPL 4
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
