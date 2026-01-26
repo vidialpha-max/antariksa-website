@@ -1,11 +1,15 @@
-// Import CSS Tailwind
 import "./style.css";
 
-// Mobile menu toggle
-const menuToggle = document.getElementById("menuToggle");
-const navMenu = document.getElementById("navMenu");
+// Function to check if element exists
+function elementExists(selector) {
+  return document.querySelector(selector) !== null;
+}
 
-if (menuToggle && navMenu) {
+// Mobile menu toggle
+if (elementExists("#menuToggle") && elementExists("#navMenu")) {
+  const menuToggle = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
+
   menuToggle.addEventListener("click", function () {
     const isHidden = navMenu.classList.contains("hidden");
 
@@ -82,6 +86,8 @@ if (menuToggle && navMenu) {
 // Create particle background
 function createParticles() {
   const particlesContainer = document.getElementById("particles");
+  if (!particlesContainer) return;
+
   const particleCount = 50;
 
   for (let i = 0; i < particleCount; i++) {
@@ -111,6 +117,7 @@ function initScrollAnimations() {
   const animatedElements = document.querySelectorAll(
     ".animate-slide-up, .animate-fade-in",
   );
+  if (animatedElements.length === 0) return;
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -144,6 +151,8 @@ function initScrollAnimations() {
 
 // Search Functionality
 function initSearch() {
+  if (!elementExists("#searchInput")) return;
+
   const searchInput = document.getElementById("searchInput");
   const searchButton = document.getElementById("searchButton");
   const searchResults = document.getElementById("searchResults");
@@ -155,51 +164,61 @@ function initSearch() {
       title: "Tata Surya",
       desc: "Sistem planet yang terdiri dari Matahari dan benda langit yang mengitarinya",
       category: "Planet",
+      link: "tata-surya.html",
     },
     {
       title: "Gerhana Matahari",
       desc: "Fenomena ketika Bulan menghalangi cahaya Matahari",
       category: "Fenomena",
+      link: "gerhana.html",
     },
     {
       title: "Galaksi Bima Sakti",
       desc: "Galaksi spiral tempat tata surya kita berada",
       category: "Galaksi",
+      link: "index.html",
     },
     {
       title: "Planet Saturnus",
       desc: "Planet dengan sistem cincin yang indah",
       category: "Planet",
+      link: "tata-surya.html",
     },
     {
       title: "Supernova",
       desc: "Ledakan besar yang menandai kematian sebuah bintang",
       category: "Fenomena",
+      link: "index.html",
     },
     {
       title: "Hujan Meteor",
       desc: "Fenomena meteor yang tampak berjatuhan di langit malam",
       category: "Fenomena",
+      link: "index.html",
     },
     {
       title: "Eksplorasi Antariksa",
       desc: "Penjelajahan manusia ke luar angkasa",
       category: "Teknologi",
+      link: "artikel.html",
     },
     {
       title: "Satelit Alami",
       desc: "Benda langit yang mengorbit planet, seperti Bulan",
       category: "Satelit",
+      link: "tata-surya.html",
     },
     {
       title: "Bintang Neutron",
       desc: "Sisa inti bintang masif setelah supernova",
       category: "Bintang",
+      link: "index.html",
     },
     {
       title: "Lubang Hitam",
       desc: "Wilayah di ruang angkasa dengan gravitasi sangat kuat",
       category: "Fenomena",
+      link: "index.html",
     },
   ];
 
@@ -233,7 +252,7 @@ function initSearch() {
                 `;
         li.addEventListener("click", function () {
           searchInput.value = result.title;
-          performSearch(result.title);
+          performSearch(result.title, result.link);
         });
         resultsList.appendChild(li);
       });
@@ -250,7 +269,7 @@ function initSearch() {
   }
 
   // Fungsi untuk melakukan pencarian
-  function performSearch(query) {
+  function performSearch(query, link = null) {
     if (!query.trim()) {
       alert("Silakan masukkan kata kunci pencarian");
       return;
@@ -260,15 +279,19 @@ function initSearch() {
     searchResults.classList.remove("opacity-100", "visible");
     searchResults.classList.add("opacity-0", "invisible");
 
+    // Jika ada link, arahkan ke halaman tersebut
+    if (link) {
+      window.location.href = link;
+      return;
+    }
+
     // Simulasi pencarian
     const found = searchData.find(
       (item) => item.title.toLowerCase() === query.toLowerCase(),
     );
 
     if (found) {
-      alert(
-        `Anda mencari: "${found.title}"\n\nDeskripsi: ${found.desc}\nKategori: ${found.category}`,
-      );
+      window.location.href = found.link;
     } else {
       // Cari yang mengandung kata kunci
       const similar = searchData.filter(
@@ -281,7 +304,9 @@ function initSearch() {
         const resultText = similar
           .map((item) => `• ${item.title}: ${item.desc}`)
           .join("\n\n");
-        alert(`Hasil pencarian untuk "${query}":\n\n${resultText}`);
+        alert(
+          `Hasil pencarian untuk "${query}":\n\n${resultText}\n\nKlik pada salah satu hasil untuk membuka halaman.`,
+        );
       } else {
         alert(`Tidak ditemukan hasil untuk "${query}"`);
       }
@@ -297,9 +322,11 @@ function initSearch() {
   });
 
   // Event listener untuk tombol cari
-  searchButton.addEventListener("click", function () {
-    performSearch(searchInput.value);
-  });
+  if (searchButton) {
+    searchButton.addEventListener("click", function () {
+      performSearch(searchInput.value);
+    });
+  }
 
   // Event listener untuk tekan Enter di input
   searchInput.addEventListener("keypress", function (e) {
@@ -316,72 +343,58 @@ function initSearch() {
     }
   });
 
-  // Dropdown mobile untuk Pengenalan Antariksa
-  const pengenalanToggle = document.querySelector(".pengenalan-toggle");
-  const pengenalanDropdown = document.querySelector(".pengenalan-dropdown");
-
-  if (pengenalanToggle && pengenalanDropdown) {
-    pengenalanToggle.addEventListener("click", function (e) {
-      // Di mobile, toggle dropdown
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        pengenalanDropdown.classList.toggle("active");
-
-        // Tutup dropdown lain jika ada
-        const otherDropdowns = document.querySelectorAll(
-          ".dropdown-mobile.active",
-        );
-        otherDropdowns.forEach((dropdown) => {
-          if (dropdown !== pengenalanDropdown) {
-            dropdown.classList.remove("active");
-          }
-        });
-      }
-    });
-
-    // Tutup dropdown saat klik di luar
-    document.addEventListener("click", function (event) {
-      if (window.innerWidth <= 768) {
-        if (
-          !pengenalanToggle.contains(event.target) &&
-          !pengenalanDropdown.contains(event.target)
-        ) {
-          pengenalanDropdown.classList.remove("active");
-        }
-      }
-    });
+  // Untuk mobile, atur lebar input agar responsif
+  function adjustSearchWidth() {
+    if (window.innerWidth < 768) {
+      searchInput.parentElement.classList.add("w-full");
+      searchInput.classList.add("w-full");
+    } else {
+      searchInput.parentElement.classList.remove("w-full");
+      searchInput.classList.remove("w-full");
+    }
   }
-
-  // Smooth scroll untuk anchor links di dropdown
-  document.querySelectorAll(".pengenalan-dropdown a").forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      const href = this.getAttribute("href");
-
-      if (href.startsWith("#")) {
-        e.preventDefault();
-
-        const targetId = href.substring(1);
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement) {
-          // Scroll ke elemen target
-          window.scrollTo({
-            top: targetElement.offsetTop - 100,
-            behavior: "smooth",
-          });
-
-          // Tutup dropdown di mobile
-          if (window.innerWidth <= 768 && pengenalanDropdown) {
-            pengenalanDropdown.classList.remove("active");
-          }
-        }
-      }
-    });
-  });
 
   // Panggil saat load dan resize
   adjustSearchWidth();
   window.addEventListener("resize", adjustSearchWidth);
+}
+
+// Dropdown mobile untuk Pengenalan Antariksa
+function initPengenalanDropdown() {
+  const pengenalanToggle = document.querySelector(".pengenalan-toggle");
+  const pengenalanDropdown = document.querySelector(".pengenalan-dropdown");
+
+  if (!pengenalanToggle || !pengenalanDropdown) return;
+
+  pengenalanToggle.addEventListener("click", function (e) {
+    // Di mobile, toggle dropdown
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      pengenalanDropdown.classList.toggle("active");
+
+      // Tutup dropdown lain jika ada
+      const otherDropdowns = document.querySelectorAll(
+        ".dropdown-mobile.active",
+      );
+      otherDropdowns.forEach((dropdown) => {
+        if (dropdown !== pengenalanDropdown) {
+          dropdown.classList.remove("active");
+        }
+      });
+    }
+  });
+
+  // Tutup dropdown saat klik di luar
+  document.addEventListener("click", function (event) {
+    if (window.innerWidth <= 768) {
+      if (
+        !pengenalanToggle.contains(event.target) &&
+        !pengenalanDropdown.contains(event.target)
+      ) {
+        pengenalanDropdown.classList.remove("active");
+      }
+    }
+  });
 }
 
 // Initialize everything when DOM is ready
@@ -389,4 +402,5 @@ document.addEventListener("DOMContentLoaded", function () {
   createParticles();
   initScrollAnimations();
   initSearch();
+  initPengenalanDropdown();
 });

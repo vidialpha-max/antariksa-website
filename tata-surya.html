@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Tata Surya - Mengenal Antariksa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-space-blue text-text-light min-h-screen">
+    <!-- Particle Background -->
+    <div id="particles" class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]"></div>
+    
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-gradient-to-b from-space-blue/95 to-space-blue/85 backdrop-blur-lg border-b border-primary-blue/20 py-5">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <div class="text-primary-blue text-3xl">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h1 class="font-orbitron font-bold text-2xl bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent tracking-wide">
+                        Mengenal Antariksa
+                    </h1>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="menuToggle" class="md:hidden text-primary-blue text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <!-- Navigation -->
+                <nav class="w-full md:w-auto">
+                    <ul id="navMenu" class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+                        <li class="w-full md:w-auto">
+                            <a href="index.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        
+                        <!-- Search Input Section -->
+                        <li class="relative w-full md:w-auto">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-search text-primary-blue"></i>
+                                <div class="relative group">
+                                    <input 
+                                        type="text" 
+                                        id="searchInput"
+                                        placeholder="Cari tentang tata surya..." 
+                                        class="w-full md:w-64 px-4 py-2 bg-space-light/70 border border-primary-blue/30 rounded-lg text-text-light placeholder-blue-300 focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/30 transition-all duration-300"
+                                    >
+                                    <div id="searchResults" class="absolute top-full mt-2 w-full bg-space-light/95 backdrop-blur-lg rounded-lg border border-primary-blue/20 shadow-xl opacity-0 invisible transition-all duration-300 transform translate-y-2 z-50">
+                                        <div class="p-4">
+                                            <p class="text-blue-300 text-sm mb-2">Hasil pencarian:</p>
+                                            <ul id="resultsList" class="space-y-2">
+                                                <!-- Hasil pencarian akan muncul di sini via JavaScript -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="searchButton" class="px-4 py-2 bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue rounded-lg transition-colors border border-primary-blue/30">
+                                    Cari
+                                </button>
+                            </div>
+                        </li>
+                        
+                        <!-- Pengenalan Antariksa Dropdown -->
+                        <li class="relative w-full md:w-auto group">
+                            <a href="#" class="pengenalan-toggle flex items-center justify-between gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-globe"></i>
+                                    <span>Pengenalan Antariksa</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </a>
+                            <ul class="pengenalan-dropdown absolute left-0 top-full mt-2 w-48 bg-space-light/95 backdrop-blur-lg rounded-lg border border-primary-blue/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                                <li>
+                                    <a href="index.html" class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>Pengenalan Antariksa</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center gap-2 px-4 py-3 bg-primary-blue/10 text-primary-blue transition-colors">
+                                        <i class="fas fa-solar-system"></i>
+                                        <span>Sistem Tata Surya</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="gerhana.html" class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors">
+                                        <i class="fas fa-sun"></i>
+                                        <span>Gerhana Matahari</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Artikel -->
+                        <li class="w-full md:w-auto">
+                            <a href="artikel.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
+                                <i class="fas fa-book"></i>
+                                <span>Artikel</span>
+                            </a>
+                        </li>
+                        
+                        <!-- Galeri -->
+                        <li class="w-full md:w-auto">
+                            <a href="galeri.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
+                                <i class="fas fa-images"></i>
+                                <span>Galeri</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1470&auto=format&fit=crop')] bg-cover bg-center opacity-15"></div>
+        <div class="container mx-auto px-4 text-center animate-fade-in">
+            <h1 class="font-orbitron font-bold text-4xl md:text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent leading-tight">
+                Sistem Tata Surya
+            </h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-blue-100">
+                Jelajahi sistem planet kita yang menakjubkan, mulai dari Matahari sebagai pusat hingga planet-planet yang mengitarinya.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4">
+        <section class="py-16 border-t border-primary-blue/10 animate-slide-up">
+            <h2 class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-12 pb-4 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-primary-blue after:to-transparent">
+                Mengenal Tata Surya Kita
+            </h2>
+            
+            <div class="space-y-6 mb-12">
+                <p class="text-lg leading-relaxed">
+                    Tata Surya adalah sistem planet yang terdiri dari Matahari sebagai pusatnya dan benda-benda langit yang mengitarinya, termasuk 8 planet, satelit alami (bulan), asteroid, komet, meteoroid, dan benda langit lainnya.
+                </p>
+                
+                <p class="text-lg leading-relaxed">
+                    Sistem tata surya kita terletak di galaksi Bima Sakti, tepatnya di lengan Orion. Matahari, sebagai bintang tunggal di tata surya kita, menyediakan 99,86% massa total sistem tata surya.
+                </p>
+            </div>
+            
+            <!-- Planets Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
+                    <div class="text-primary-blue text-4xl mb-4">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Matahari</h3>
+                    <p class="text-blue-100 text-sm">Bintang pusat tata surya, sumber energi utama</p>
+                </article>
+                
+                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
+                    <div class="text-primary-blue text-4xl mb-4">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Bumi</h3>
+                    <p class="text-blue-100 text-sm">Planet ketiga, satu-satunya yang diketahui memiliki kehidupan</p>
+                </article>
+                
+                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
+                    <div class="text-primary-blue text-4xl mb-4">
+                        <i class="fas fa-ringed-planet"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Saturnus</h3>
+                    <p class="text-blue-100 text-sm">Planet keenam, terkenal dengan sistem cincinnya</p>
+                </article>
+                
+                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
+                    <div class="text-primary-blue text-4xl mb-4">
+                        <i class="fas fa-gas-planet"></i>
+                    </div>
+                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Jupiter</h3>
+                    <p class="text-blue-100 text-sm">Planet terbesar di tata surya kita</p>
+                </article>
+            </div>
+            
+            <section class="mt-16">
+                <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Struktur Tata Surya</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-orbitron text-xl text-primary-blue mb-4">Planet Dalam</h4>
+                        <ul class="space-y-2 text-blue-100">
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Merkurius - Planet terdekat dengan Matahari</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Venus - Planet terpanas dengan atmosfer tebal</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Bumi - Planet biru dengan kehidupan</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Mars - Planet merah dengan gunung tertinggi</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-orbitron text-xl text-primary-blue mb-4">Planet Luar</h4>
+                        <ul class="space-y-2 text-blue-100">
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Jupiter - Raksasa gas dengan Great Red Spot</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Saturnus - Planet dengan cincin menakjubkan</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Uranus - Planet yang berotasi miring</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Neptunus - Planet terjauh dengan angin terkuat</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mt-16 p-8 bg-space-light/50 rounded-xl border border-primary-blue/20">
+                <h3 class="font-orbitron text-2xl text-primary-blue mb-4">Fakta Menarik</h3>
+                <ul class="space-y-3 text-blue-100">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-star text-primary-blue mt-1"></i>
+                        <span>Tata surya berusia sekitar 4,6 miliar tahun</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-star text-primary-blue mt-1"></i>
+                        <span>99% massa tata surya berada di Matahari</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-star text-primary-blue mt-1"></i>
+                        <span>Jupiter memiliki 79 bulan yang diketahui</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-star text-primary-blue mt-1"></i>
+                        <span>Sabuk asteroid terletak antara Mars dan Jupiter</span>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="mt-20 bg-gradient-to-t from-space-blue to-space-light/50 border-t border-primary-blue/20 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center">
+                <!-- Column 1: About -->
+                <section>
+                    <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Mengenal Antariksa</h3>
+                    <p class="text-blue-100">Portal edukasi untuk mengenal alam semesta di sekitar kita. Mari bersama menjelajahi luar angkasa yang luas ini.</p>
+                </section>
+                
+                <!-- Column 2: Menu -->
+                <section>
+                    <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Menu Utama</h3>
+                    <nav>
+                        <ul class="space-y-3">
+                            <li><a href="index.html" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Home</a></li>
+                            <li><a href="#" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Tata Surya</a></li>
+                            <li><a href="gerhana.html" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Gerhana Matahari</a></li>
+                            <li><a href="artikel.html" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Artikel</a></li>
+                        </ul>
+                    </nav>
+                </section>
+                
+                <!-- Column 3: Contact -->
+                <section>
+                    <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Kontak</h3>
+                    <address class="space-y-3 not-italic">
+                        <p class="flex items-center justify-center gap-3 text-blue-100">
+                            <i class="fas fa-envelope"></i> #
+                        </p>
+                        <p class="flex items-center justify-center gap-3 text-blue-100">
+                            <i class="fas fa-phone"></i> +62
+                        </p>
+                        <p class="flex items-center justify-center gap-3 text-blue-100">
+                            <i class="fas fa-map-marker-alt"></i> Depok, Indonesia
+                        </p>
+                    </address>
+                </section>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-primary-blue/10 text-center">
+                <p class="text-blue-200">
+                    &copy; 2026 Mengenal Antariksa | 
+                    Dibuat untuk pengetahuan dan tugas IPAS Smk Taruna Bhakti X RPL 4
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- External JavaScript -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
