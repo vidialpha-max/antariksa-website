@@ -397,10 +397,186 @@ function initPengenalanDropdown() {
   });
 }
 
+// Popup untuk Objek Antariksa (Bima Sakti, Matahari, Saturnus)
+function initObjekPopup() {
+  const objekCards = document.querySelectorAll(".objek-card");
+
+  objekCards.forEach((card) => {
+    card.addEventListener("click", function () {
+      const objek = this.getAttribute("data-objek");
+      let judul = "";
+      let gambar = "";
+      let deskripsi = "";
+      let fakta = [];
+
+      // Tentukan data berdasarkan objek
+      switch (objek) {
+        case "bima-sakti":
+          judul = "Galaksi Bima Sakti";
+          gambar =
+            "https://images.unsplash.com/photo-1501862700950-18382cd41497?ixlib=rb-4.0.3&auto=format&fit=crop&w=1419&q=80";
+          deskripsi =
+            "Galaksi spiral tempat tata surya kita berada. Bima Sakti adalah galaksi berbatang dengan diameter sekitar 100.000 tahun cahaya dan ketebalan sekitar 1.000 tahun cahaya. Kita berada di lengan Orion, sekitar 27.000 tahun cahaya dari pusat galaksi.";
+          fakta = [
+            "⏳ Usia: 13,6 miliar tahun",
+            "🌟 Jumlah bintang: 100-400 miliar",
+            "🌀 Tipe: Galaksi spiral berbatang",
+            "🌌 Grup: Grup Lokal (54 galaksi)",
+            "📍 Lokasi kita: Lengan Orion",
+          ];
+          break;
+
+        case "matahari":
+          judul = "Matahari";
+          gambar =
+            "https://images.unsplash.com/photo-1614642264762-d0a3b8bf3700?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80";
+          deskripsi =
+            "Bintang tunggal di pusat tata surya kita. Matahari adalah bola plasma panas yang memancarkan energi melalui reaksi fusi nuklir di intinya. Energi ini menjangkau Bumi dalam bentuk cahaya dan panas, mendukung seluruh kehidupan di planet kita.";
+          fakta = [
+            "🔥 Suhu inti: 15 juta °C",
+            "🌡 Suhu permukaan: 5.500 °C",
+            "⚖️ Massa: 1,989 × 10³⁰ kg",
+            "🎨 Komposisi: 74% Hidrogen, 24% Helium",
+            "⏳ Usia: 4,6 miliar tahun",
+          ];
+          break;
+
+        case "saturnus":
+          judul = "Planet Saturnus";
+          gambar =
+            "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80";
+          deskripsi =
+            "Planet keenam dari Matahari dan planet kedua terbesar di tata surya kita. Saturnus terkenal dengan sistem cincinnya yang spektakuler, yang terdiri dari miliaran partikel es dan batuan. Planet ini memiliki kepadatan yang lebih rendah dari air.";
+          fakta = [
+            "💍 Cincin utama: 7 cincin (A-G)",
+            "🌙 Bulan: 82 bulan (Titan terbesar)",
+            "🌀 Rotasi: 10,7 jam (tercepat)",
+            "🎨 Warna: Kuning pucat karena amonia",
+            "🎯 Khusus: Bisa mengapung di air",
+          ];
+          break;
+      }
+
+      // Gunakan SweetAlert2 untuk popup
+      Swal.fire({
+        title: `<span class="font-orbitron text-2xl text-primary-blue">${judul}</span>`,
+        html: `
+          <div class="text-left">
+            <div class="mb-6 rounded-xl overflow-hidden border border-primary-blue/20">
+              <img src="${gambar}" alt="${judul}" class="w-full h-48 object-cover">
+            </div>
+            <p class="mb-4 text-blue-100">${deskripsi}</p>
+            <div class="bg-space-light/50 p-4 rounded-lg border border-primary-blue/20 mb-4">
+              <h4 class="font-orbitron text-primary-blue mb-2"><i class="fas fa-star mr-2"></i>Fakta Menarik:</h4>
+              <ul class="space-y-1">
+                ${fakta.map((f) => `<li class="text-blue-200 flex items-center"><i class="fas fa-circle text-xs mr-2 text-primary-blue"></i>${f}</li>`).join("")}
+              </ul>
+            </div>
+            <div class="flex justify-between items-center text-sm text-blue-300">
+              <div>
+                <i class="fas fa-info-circle mr-1"></i>
+                <span>Klik di luar untuk menutup</span>
+              </div>
+              <div class="text-primary-blue">
+                <i class="fas fa-external-link-alt"></i>
+                <a href="tata-surya.html" class="ml-1 hover:underline">Pelajari lebih lanjut</a>
+              </div>
+            </div>
+          </div>
+        `,
+        width: "600px",
+        background: "#0f172a",
+        color: "#e2e8f0",
+        showConfirmButton: false,
+        showCloseButton: true,
+        customClass: {
+          popup: "bg-space-light border border-primary-blue/30 rounded-xl",
+          title: "font-orbitron",
+          closeButton: "text-primary-blue hover:text-white",
+        },
+      });
+    });
+  });
+}
+
+// Coming Soon Popup untuk Fenomena Antariksa
+function initComingSoonPopup() {
+  const fenomenaCards = document.querySelectorAll(".fenomena-card");
+
+  fenomenaCards.forEach((card) => {
+    card.addEventListener("click", function () {
+      const fenomena = this.getAttribute("data-fenomena");
+      let judul = "";
+      let ikon = "";
+      let deskripsi = "";
+
+      switch (fenomena) {
+        case "gerhana":
+          judul = "Gerhana Matahari Total";
+          ikon = "fas fa-sun";
+          deskripsi =
+            'Fenomena langit yang menakjubkan ketika Bulan sepenuhnya menutupi Matahari, menciptakan "siang yang menjadi malam" selama beberapa menit. Gerhana total terakhir di Indonesia terjadi pada 9 Maret 2016.';
+          break;
+        case "supernova":
+          judul = "Ledakan Supernova";
+          ikon = "fas fa-star";
+          deskripsi =
+            "Ledakan spektakuler yang menandai kematian sebuah bintang masif. Supernova bisa bersinar lebih terang dari seluruh galaksi selama beberapa minggu. Supernova terakhir yang terlihat dari Bumi adalah SN 1987A.";
+          break;
+        case "hujan-meteor":
+          judul = "Hujan Meteor Perseid";
+          ikon = "fas fa-meteor";
+          deskripsi =
+            "Hujan meteor tahunan yang berasal dari puing-puing Komet Swift-Tuttle. Dinamakan Perseid karena titik radiannya berada di rasi bintang Perseus. Bisa dilihat setiap tahun di bulan Agustus.";
+          break;
+      }
+
+      Swal.fire({
+        title: `<span class="font-orbitron text-primary-blue">${judul}</span>`,
+        html: `
+          <div class="text-left">
+            <div class="text-center mb-4">
+              <i class="${ikon} text-primary-blue text-5xl"></i>
+            </div>
+            <p class="mb-4 text-blue-100">${deskripsi}</p>
+            <div class="bg-space-light/50 p-4 rounded-lg border border-primary-blue/20 my-4">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-tools text-primary-blue text-xl"></i>
+                <div>
+                  <p class="font-medium text-primary-blue">Sedang Dalam Pengembangan</p>
+                  <p class="text-sm text-blue-200">Kami sedang menyiapkan konten lengkap dengan animasi, timeline, dan panduan pengamatan untuk Anda.</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-blue-300 text-sm">
+              <i class="fas fa-clock mr-1"></i>
+              Perkiraan selesai: Desember 2024
+            </p>
+          </div>
+        `,
+        icon: "info",
+        iconColor: "#4dabff",
+        background: "#0f172a",
+        color: "#e2e8f0",
+        confirmButtonText: "Mengerti",
+        confirmButtonColor: "#4dabff",
+        showCloseButton: true,
+        customClass: {
+          popup: "bg-space-light border border-primary-blue/30 rounded-xl",
+          title: "font-orbitron",
+          confirmButton: "font-exo",
+        },
+      });
+    });
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
   createParticles();
   initScrollAnimations();
   initSearch();
   initPengenalanDropdown();
+  initObjekPopup(); // Tambah ini
+  initComingSoonPopup();
 });
