@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    {
+      "source": "/tata-surya",
+      "destination": "/tata-surya.html"
+    },
+    {
+      "source": "/artikel",
+      "destination": "/artikel.html"
+    },
+    {
+      "source": "/galeri",
+      "destination": "/galeri.html"
+    },
+    {
+      "source": "/gerhana",
+      "destination": "/gerhana.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite"
+}

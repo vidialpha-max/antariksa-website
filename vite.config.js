@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/',  // Pastikan ini '/' untuk root domain
+  base: '/',
   build: {
     outDir: 'dist',
     rollupOptions: {
