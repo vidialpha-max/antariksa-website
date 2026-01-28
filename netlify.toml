@@ -1,0 +1,29 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Atau jika ingin multi-page:
+[[redirects]]
+  from = "/tata-surya"
+  to = "/tata-surya.html"
+  status = 200
+
+[[redirects]]
+  from = "/artikel"
+  to = "/artikel.html"
+  status = 200
+
+[[redirects]]
+  from = "/galeri"
+  to = "/galeri.html"
+  status = 200
+
+[[redirects]]
+  from = "/gerhana"
+  to = "/gerhana.html"
+  status = 200
