@@ -1,288 +1,1363 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistem Tata Surya - Mengenal Antariksa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
-</head>
-<body class="bg-space-blue text-text-light min-h-screen">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "space-blue": "#0a0e17",
+              "space-light": "#1a2238",
+              "primary-blue": "#4dabff",
+              "primary-purple": "#9d4edd",
+              "text-light": "#e2e8f0",
+            },
+            fontFamily: {
+              orbitron: ["Orbitron", "sans-serif"],
+              exo: ["Exo 2", "sans-serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 1s ease-in",
+              "slide-up": "slideUp 0.5s ease-out",
+              "pulse-slow": "pulse 3s ease-in-out infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(20px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      body {
+        font-family: "Exo 2", sans-serif;
+        background-color: #0a0e17;
+        color: #e2e8f0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      .font-orbitron {
+        font-family: "Orbitron", sans-serif;
+      }
+
+      .font-exo {
+        font-family: "Exo 2", sans-serif;
+      }
+
+      #solarSystemCanvas {
+        outline: none;
+        cursor: grab;
+        touch-action: none;
+      }
+
+      #solarSystemCanvas:active {
+        cursor: grabbing;
+      }
+
+      .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      .floating {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* Particle animation */
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.2;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+      }
+
+      .twinkle {
+        animation: twinkle 2s infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-space-blue text-text-light min-h-screen">
     <!-- Particle Background -->
-    <div id="particles" class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]"></div>
-    
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-50 bg-gradient-to-b from-space-blue/95 to-space-blue/85 backdrop-blur-lg border-b border-primary-blue/20 py-5">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
-                <!-- Logo -->
-                <div class="flex items-center gap-4">
-                    <div class="text-primary-blue text-3xl">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
-                    <h1 class="font-orbitron font-bold text-2xl bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent tracking-wide">
-                        Mengenal Antariksa
-                    </h1>
-                </div>
-                
-                <!-- Mobile Menu Toggle -->
-                <button id="menuToggle" class="md:hidden text-primary-blue text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <!-- Navigation -->
-                <nav class="w-full md:w-auto">
-                    <ul id="navMenu" class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-                        <li class="w-full md:w-auto">
-                            <a href="index.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
-                                <i class="fas fa-home"></i>
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        
-                        <!-- Search Input Section -->
-                        <li class="relative w-full md:w-auto">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-search text-primary-blue"></i>
-                                <div class="relative group">
-                                    <input 
-                                        type="text" 
-                                        id="searchInput"
-                                        placeholder="Cari tentang tata surya..." 
-                                        class="w-full md:w-64 px-4 py-2 bg-space-light/70 border border-primary-blue/30 rounded-lg text-text-light placeholder-blue-300 focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/30 transition-all duration-300"
-                                    >
-                                    <div id="searchResults" class="absolute top-full mt-2 w-full bg-space-light/95 backdrop-blur-lg rounded-lg border border-primary-blue/20 shadow-xl opacity-0 invisible transition-all duration-300 transform translate-y-2 z-50">
-                                        <div class="p-4">
-                                            <p class="text-blue-300 text-sm mb-2">Hasil pencarian:</p>
-                                            <ul id="resultsList" class="space-y-2">
-                                                <!-- Hasil pencarian akan muncul di sini via JavaScript -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button id="searchButton" class="px-4 py-2 bg-primary-blue/20 hover:bg-primary-blue/30 text-primary-blue rounded-lg transition-colors border border-primary-blue/30">
-                                    Cari
-                                </button>
-                            </div>
-                        </li>
-                        
-                        <!-- Pengenalan Antariksa Dropdown -->
-                        <li class="relative w-full md:w-auto group">
-                            <a href="#" class="pengenalan-toggle flex items-center justify-between gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
-                                <div class="flex items-center gap-2">
-                                    <i class="fas fa-globe"></i>
-                                    <span>Pengenalan Antariksa</span>
-                                </div>
-                                <i class="fas fa-chevron-down text-sm"></i>
-                            </a>
-                            <ul class="pengenalan-dropdown absolute left-0 top-full mt-2 w-48 bg-space-light/95 backdrop-blur-lg rounded-lg border border-primary-blue/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
-                                <li>
-                                    <a href="index.html" class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors">
-                                        <i class="fas fa-info-circle"></i>
-                                        <span>Pengenalan Antariksa</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center gap-2 px-4 py-3 bg-primary-blue/10 text-primary-blue transition-colors">
-                                        <i class="fas fa-solar-system"></i>
-                                        <span>Sistem Tata Surya</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="gerhana.html" class="flex items-center gap-2 px-4 py-3 hover:bg-primary-blue/10 transition-colors">
-                                        <i class="fas fa-sun"></i>
-                                        <span>Gerhana Matahari</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <!-- Artikel -->
-                        <li class="w-full md:w-auto">
-                            <a href="artikel.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
-                                <i class="fas fa-book"></i>
-                                <span>Artikel</span>
-                            </a>
-                        </li>
-                        
-                        <!-- Galeri -->
-                        <li class="w-full md:w-auto">
-                            <a href="galeri.html" class="flex items-center gap-2 text-lg px-4 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors">
-                                <i class="fas fa-images"></i>
-                                <span>Galeri</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+    <div
+      id="particles"
+      class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]"
+    ></div>
+
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 bg-gradient-to-b from-space-blue/95 to-space-blue/85 backdrop-blur-lg border-b border-primary-blue/20 py-4"
+    >
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <div class="flex items-center gap-3">
+            <div class="text-primary-blue text-2xl">
+              <i class="fas fa-globe-americas"></i>
             </div>
-        </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section class="relative py-20 overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1470&auto=format&fit=crop')] bg-cover bg-center opacity-15"></div>
-        <div class="container mx-auto px-4 text-center animate-fade-in">
-            <h1 class="font-orbitron font-bold text-4xl md:text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent leading-tight">
-                Sistem Tata Surya
+            <h1
+              class="font-orbitron font-bold text-xl bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent"
+            >
+              Mengenal Antariksa
             </h1>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-blue-100">
-                Jelajahi sistem planet kita yang menakjubkan, mulai dari Matahari sebagai pusat hingga planet-planet yang mengitarinya.
-            </p>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="hidden md:block">
+            <ul class="flex items-center gap-6">
+              <li>
+                <a
+                  href="index.html"
+                  class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+                >
+                  <i class="fas fa-home"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center gap-2 px-3 py-2 rounded-md bg-primary-blue/10 text-primary-blue"
+                >
+                  <i class="fas fa-solar-system"></i>
+                  <span>Tata Surya</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="gerhana.html"
+                  class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+                >
+                  <i class="fas fa-sun"></i>
+                  <span>Gerhana</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden text-primary-blue text-xl"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
         </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="md:hidden mt-4 hidden">
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="index.html"
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+              >
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-2 px-3 py-2 rounded-md bg-primary-blue/10 text-primary-blue"
+              >
+                <i class="fas fa-solar-system"></i>
+                <span>Tata Surya</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="gerhana.html"
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+              >
+                <i class="fas fa-sun"></i>
+                <span>Gerhana</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="artikel.html"
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+              >
+                <i class="fas fa-book"></i>
+                <span>Artikel</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="galeri.html"
+                class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-primary-blue/10 hover:text-primary-blue transition-colors"
+              >
+                <i class="fas fa-images"></i>
+                <span>Galeri</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-12 md:py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1
+          class="font-orbitron font-bold text-3xl md:text-5xl mb-6 bg-gradient-to-r from-primary-blue to-primary-purple bg-clip-text text-transparent"
+        >
+          Sistem Tata Surya 3D
+        </h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-blue-100">
+          Jelajahi tata surya kita dalam bentuk 3D interaktif. Klik pada planet
+          untuk melihat informasi detail.
+        </p>
+      </div>
     </section>
-    
+
     <!-- Main Content -->
-    <main class="container mx-auto px-4">
-        <section class="py-16 border-t border-primary-blue/10 animate-slide-up">
-            <h2 class="font-orbitron text-3xl md:text-4xl text-center text-primary-blue mb-12 pb-4 relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-primary-blue after:to-transparent">
-                Mengenal Tata Surya Kita
-            </h2>
-            
-            <div class="space-y-6 mb-12">
-                <p class="text-lg leading-relaxed">
-                    Tata Surya adalah sistem planet yang terdiri dari Matahari sebagai pusatnya dan benda-benda langit yang mengitarinya, termasuk 8 planet, satelit alami (bulan), asteroid, komet, meteoroid, dan benda langit lainnya.
-                </p>
-                
-                <p class="text-lg leading-relaxed">
-                    Sistem tata surya kita terletak di galaksi Bima Sakti, tepatnya di lengan Orion. Matahari, sebagai bintang tunggal di tata surya kita, menyediakan 99,86% massa total sistem tata surya.
-                </p>
+    <main class="container mx-auto px-4 pb-16">
+      <!-- 3D Solar System -->
+      <div class="mb-12">
+        <div
+          class="relative bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl border border-primary-blue/20 p-4"
+        >
+          <!-- Canvas Container -->
+          <div
+            id="solarSystemContainer"
+            class="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden relative"
+          >
+            <canvas id="solarSystemCanvas" class="w-full h-full"></canvas>
+
+            <!-- Loading Indicator -->
+            <div
+              id="loadingIndicator"
+              class="absolute inset-0 bg-space-blue/95 flex flex-col items-center justify-center"
+            >
+              <div class="text-4xl text-primary-blue mb-4 floating">
+                <i class="fas fa-satellite"></i>
+              </div>
+              <p class="text-blue-100 font-orbitron animate-pulse-slow">
+                Memuat visualisasi 3D...
+              </p>
+              <p class="text-sm text-blue-300 mt-2 max-w-md text-center px-4">
+                Jika loading terlalu lama, pastikan koneksi internet stabil atau
+                refresh halaman.
+              </p>
             </div>
-            
-            <!-- Planets Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
-                    <div class="text-primary-blue text-4xl mb-4">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Matahari</h3>
-                    <p class="text-blue-100 text-sm">Bintang pusat tata surya, sumber energi utama</p>
-                </article>
-                
-                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
-                    <div class="text-primary-blue text-4xl mb-4">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
-                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Bumi</h3>
-                    <p class="text-blue-100 text-sm">Planet ketiga, satu-satunya yang diketahui memiliki kehidupan</p>
-                </article>
-                
-                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
-                    <div class="text-primary-blue text-4xl mb-4">
-                        <i class="fas fa-ringed-planet"></i>
-                    </div>
-                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Saturnus</h3>
-                    <p class="text-blue-100 text-sm">Planet keenam, terkenal dengan sistem cincinnya</p>
-                </article>
-                
-                <article class="bg-gradient-to-br from-space-light/80 to-space-blue/90 rounded-xl p-6 border border-primary-blue/10 hover:border-primary-blue/40 transition-all duration-300 hover:-translate-y-2 text-center">
-                    <div class="text-primary-blue text-4xl mb-4">
-                        <i class="fas fa-gas-planet"></i>
-                    </div>
-                    <h3 class="font-orbitron text-xl text-primary-blue mb-2">Jupiter</h3>
-                    <p class="text-blue-100 text-sm">Planet terbesar di tata surya kita</p>
-                </article>
+
+            <!-- Controls -->
+            <div
+              class="absolute bottom-4 left-4 bg-space-light/90 backdrop-blur-lg rounded-lg p-3 border border-primary-blue/20"
+            >
+              <div class="flex flex-wrap gap-2">
+                <button
+                  id="btnAutoRotate"
+                  class="px-3 py-2 bg-primary-blue/30 text-primary-blue rounded-lg hover:bg-primary-blue/40 transition-colors text-sm flex items-center gap-2"
+                >
+                  <i class="fas fa-play"></i> Auto Rotate
+                </button>
+                <button
+                  id="btnResetView"
+                  class="px-3 py-2 bg-primary-blue/30 text-primary-blue rounded-lg hover:bg-primary-blue/40 transition-colors text-sm flex items-center gap-2"
+                >
+                  <i class="fas fa-redo"></i> Reset
+                </button>
+                <button
+                  id="btnToggleOrbits"
+                  class="px-3 py-2 bg-primary-blue/30 text-primary-blue rounded-lg hover:bg-primary-blue/40 transition-colors text-sm flex items-center gap-2"
+                >
+                  <i class="fas fa-circle"></i> Tampilkan Orbit
+                </button>
+              </div>
             </div>
-            
-            <section class="mt-16">
-                <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Struktur Tata Surya</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="font-orbitron text-xl text-primary-blue mb-4">Planet Dalam</h4>
-                        <ul class="space-y-2 text-blue-100">
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Merkurius - Planet terdekat dengan Matahari</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Venus - Planet terpanas dengan atmosfer tebal</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Bumi - Planet biru dengan kehidupan</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Mars - Planet merah dengan gunung tertinggi</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-orbitron text-xl text-primary-blue mb-4">Planet Luar</h4>
-                        <ul class="space-y-2 text-blue-100">
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Jupiter - Raksasa gas dengan Great Red Spot</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Saturnus - Planet dengan cincin menakjubkan</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Uranus - Planet yang berotasi miring</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-circle text-xs text-primary-blue"></i> Neptunus - Planet terjauh dengan angin terkuat</li>
-                        </ul>
-                    </div>
+
+            <!-- Instructions -->
+            <div
+              class="absolute top-4 right-4 bg-space-light/90 backdrop-blur-lg rounded-lg p-3 border border-primary-blue/20 max-w-xs hidden md:block"
+            >
+              <h4 class="font-orbitron text-primary-blue text-sm mb-2">
+                <i class="fas fa-gamepad mr-2"></i>Kontrol:
+              </h4>
+              <ul class="text-xs text-blue-100 space-y-1">
+                <li>• Klik & tarik: Putar kamera</li>
+                <li>• Scroll: Zoom in/out</li>
+                <li>• Klik planet: Lihat detail</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Planet Info -->
+          <div id="planetInfo" class="mt-4 hidden">
+            <div
+              class="bg-space-light/70 rounded-lg border border-primary-blue/20 p-4"
+            >
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h3
+                    id="planetTitle"
+                    class="font-orbitron text-xl text-primary-blue"
+                  ></h3>
+                  <p id="planetSubtitle" class="text-sm text-blue-300"></p>
                 </div>
-            </section>
-            
-            <section class="mt-16 p-8 bg-space-light/50 rounded-xl border border-primary-blue/20">
-                <h3 class="font-orbitron text-2xl text-primary-blue mb-4">Fakta Menarik</h3>
-                <ul class="space-y-3 text-blue-100">
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-star text-primary-blue mt-1"></i>
-                        <span>Tata surya berusia sekitar 4,6 miliar tahun</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-star text-primary-blue mt-1"></i>
-                        <span>99% massa tata surya berada di Matahari</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-star text-primary-blue mt-1"></i>
-                        <span>Jupiter memiliki 79 bulan yang diketahui</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i class="fas fa-star text-primary-blue mt-1"></i>
-                        <span>Sabuk asteroid terletak antara Mars dan Jupiter</span>
-                    </li>
-                </ul>
-            </section>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="mt-20 bg-gradient-to-t from-space-blue to-space-light/50 border-t border-primary-blue/20 pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center">
-                <!-- Column 1: About -->
-                <section>
-                    <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Mengenal Antariksa</h3>
-                    <p class="text-blue-100">Portal edukasi untuk mengenal alam semesta di sekitar kita. Mari bersama menjelajahi luar angkasa yang luas ini.</p>
-                </section>
-                
-                <!-- Column 2: Menu -->
-                <section>
-                    <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Menu Utama</h3>
-                    <nav>
-                        <ul class="space-y-3">
-                            <li><a href="index.html" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Home</a></li>
-                            <li><a href="#" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Tata Surya</a></li>
-                            <li><a href="gerhana.html" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Gerhana Matahari</a></li>
-                            <li><a href="artikel.html" class="flex items-center justify-center gap-2 text-blue-100 hover:text-primary-blue transition-colors"><i class="fas fa-chevron-right text-xs"></i> Artikel</a></li>
-                        </ul>
-                    </nav>
-                </section>
-                
-                <!-- Column 3: Contact -->
-                <section>
-                    <h3 class="font-orbitron text-2xl text-primary-blue mb-6">Kontak</h3>
-                    <address class="space-y-3 not-italic">
-                        <p class="flex items-center justify-center gap-3 text-blue-100">
-                            <i class="fas fa-envelope"></i> #
-                        </p>
-                        <p class="flex items-center justify-center gap-3 text-blue-100">
-                            <i class="fas fa-phone"></i> +62
-                        </p>
-                        <p class="flex items-center justify-center gap-3 text-blue-100">
-                            <i class="fas fa-map-marker-alt"></i> Depok, Indonesia
-                        </p>
-                    </address>
-                </section>
+                <button
+                  onclick="hidePlanetInfo()"
+                  class="text-primary-blue hover:text-white"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <p id="planetDesc" class="text-blue-100"></p>
+                </div>
+                <div>
+                  <h4 class="font-orbitron text-primary-blue mb-2">
+                    Fakta Menarik:
+                  </h4>
+                  <ul
+                    id="planetFacts"
+                    class="text-sm text-blue-100 space-y-1"
+                  ></ul>
+                </div>
+              </div>
             </div>
-            
-            <!-- Copyright -->
-            <div class="pt-8 border-t border-primary-blue/10 text-center">
-                <p class="text-blue-200">
-                    &copy; 2026 Mengenal Antariksa | 
-                    Dibuat untuk pengetahuan dan tugas IPAS Smk Taruna Bhakti X RPL 4
-                </p>
-            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- Planet Information -->
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div
+          class="bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-xl text-primary-blue mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-fire"></i> Planet Dalam
+          </h3>
+          <div class="space-y-4">
+            <div class="planet-card" data-planet="mercury">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-gray-800"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Merkurius</h4>
+                  <p class="text-sm text-blue-300">
+                    Planet terkecil & terdekat dengan Matahari
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="planet-card" data-planet="venus">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-yellow-300"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Venus</h4>
+                  <p class="text-sm text-blue-300">
+                    Planet terpanas dengan atmosfer tebal
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="planet-card" data-planet="earth">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-blue-300"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Bumi</h4>
+                  <p class="text-sm text-blue-300">Planet dengan kehidupan</p>
+                </div>
+              </div>
+            </div>
+            <div class="planet-card" data-planet="mars">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-red-300"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Mars</h4>
+                  <p class="text-sm text-blue-300">
+                    Planet merah dengan gunung tertinggi
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-xl text-primary-blue mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-snowflake"></i> Planet Luar
+          </h3>
+          <div class="space-y-4">
+            <div class="planet-card" data-planet="jupiter">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-amber-300"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Jupiter</h4>
+                  <p class="text-sm text-blue-300">
+                    Raksasa gas dengan Great Red Spot
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="planet-card" data-planet="saturn">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-yellow-300 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-yellow-100"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Saturnus</h4>
+                  <p class="text-sm text-blue-300">
+                    Planet dengan cincin spektakuler
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="planet-card" data-planet="uranus">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-teal-400 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-teal-200"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Uranus</h4>
+                  <p class="text-sm text-blue-300">
+                    Planet yang berotasi miring
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="planet-card" data-planet="neptune">
+              <div
+                class="flex items-center gap-3 cursor-pointer p-3 hover:bg-space-blue/30 rounded-lg transition-colors"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center"
+                >
+                  <i class="fas fa-circle text-blue-400"></i>
+                </div>
+                <div>
+                  <h4 class="font-orbitron">Neptunus</h4>
+                  <p class="text-sm text-blue-300">
+                    Planet dengan angin terkuat
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Facts Section -->
+      <div
+        class="bg-space-light/50 rounded-xl border border-primary-blue/20 p-6 md:p-8"
+      >
+        <h3 class="font-orbitron text-2xl text-primary-blue mb-6 text-center">
+          <i class="fas fa-lightbulb text-yellow-400 mr-2"></i> Fakta Menarik
+          Tata Surya
+        </h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <div class="text-primary-blue text-xl mt-1">
+              <i class="fas fa-sun"></i>
+            </div>
+            <div>
+              <h4 class="font-orbitron text-primary-blue">Matahari Dominan</h4>
+              <p class="text-blue-100">
+                99.86% massa tata surya berada di Matahari
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-primary-blue text-xl mt-1">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h4 class="font-orbitron text-primary-blue">Usia Tua</h4>
+              <p class="text-blue-100">
+                Tata surya berusia sekitar 4.6 miliar tahun
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-primary-blue text-xl mt-1">
+              <i class="fas fa-moon"></i>
+            </div>
+            <div>
+              <h4 class="font-orbitron text-primary-blue">Bulan Jupiter</h4>
+              <p class="text-blue-100">
+                Jupiter memiliki 79 bulan yang diketahui
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-primary-blue text-xl mt-1">
+              <i class="fas fa-wind"></i>
+            </div>
+            <div>
+              <h4 class="font-orbitron text-primary-blue">Angin Neptunus</h4>
+              <p class="text-blue-100">
+                Kecepatan angin di Neptunus mencapai 2,100 km/jam
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gradient-to-t from-space-blue to-space-light/50 border-t border-primary-blue/20 pt-12 pb-8"
+    >
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <p class="text-blue-200">
+            &copy; 2024
+            <span class="text-primary-blue font-orbitron"
+              >Mengenal Antariksa</span
+            >
+            | Portal Edukasi Astronomi
+          </p>
+          <p class="text-blue-300 text-sm mt-2">
+            Visualisasi 3D Tata Surya Interaktif
+          </p>
+        </div>
+      </div>
     </footer>
-    
-    <!-- External JavaScript -->
-    <script type="module" src="/src/main.js"></script>
-</body>
+
+    <!-- Scripts -->
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Tween.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+
+    <!-- Main JavaScript -->
+<script>
+  // Create particle background
+  function createParticles() {
+    const container = document.getElementById("particles");
+    if (!container) return;
+
+    for (let i = 0; i < 100; i++) {
+      const particle = document.createElement("div");
+      particle.className =
+        "absolute rounded-full bg-primary-blue/20 twinkle";
+
+      const size = Math.random() * 3 + 1;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const delay = Math.random() * 2;
+
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${x}%`;
+      particle.style.top = `${y}%`;
+      particle.style.animationDelay = `${delay}s`;
+
+      container.appendChild(particle);
+    }
+  }
+
+  // Mobile menu toggle
+  document
+    .getElementById("mobileMenuBtn")
+    .addEventListener("click", function () {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("hidden");
+    });
+
+  // Planet card click handlers
+  document.querySelectorAll(".planet-card").forEach((card) => {
+    card.addEventListener("click", function () {
+      const planet = this.getAttribute("data-planet");
+      showPlanetInfo(planet);
+      // Focus on planet in 3D view
+      if (window.solarSystem && window.solarSystem.focusOnPlanet) {
+        window.solarSystem.focusOnPlanet(planet);
+      }
+    });
+  });
+
+  // Global functions
+  function showPlanetInfo(planetId) {
+    const planetData = getPlanetData(planetId);
+    if (!planetData) return;
+
+    document.getElementById("planetTitle").textContent = planetData.name;
+    document.getElementById("planetSubtitle").textContent = planetData.type;
+    document.getElementById("planetDesc").textContent =
+      planetData.description;
+
+    const factsList = document.getElementById("planetFacts");
+    factsList.innerHTML = "";
+    planetData.facts.forEach((fact) => {
+      const li = document.createElement("li");
+      li.className = "flex items-start gap-2";
+      li.innerHTML = `<i class="fas fa-circle text-xs text-primary-blue mt-1"></i><span>${fact}</span>`;
+      factsList.appendChild(li);
+    });
+
+    document.getElementById("planetInfo").classList.remove("hidden");
+  }
+
+  function hidePlanetInfo() {
+    document.getElementById("planetInfo").classList.add("hidden");
+  }
+
+  function getPlanetData(planetId) {
+    const planets = {
+      sun: {
+        name: "Matahari",
+        type: "Bintang",
+        description:
+          "Bintang pusat tata surya kita. Menyediakan 99.86% massa total sistem dan sumber energi utama bagi kehidupan di Bumi.",
+        facts: [
+          "Usia: 4.6 miliar tahun",
+          "Suhu inti: 15 juta °C",
+          "Komposisi: 74% Hidrogen, 24% Helium",
+          "Diameter: 1.39 juta km",
+        ],
+      },
+      mercury: {
+        name: "Merkurius",
+        type: "Planet Terestrial",
+        description:
+          "Planet terkecil dan terdekat dengan Matahari. Memiliki permukaan berbatu dengan banyak kawah.",
+        facts: [
+          "Jarak dari Matahari: 57.9 juta km",
+          "Suhu: -173°C hingga 427°C",
+          "Tidak memiliki satelit alami",
+          "Revolusi: 88 hari Bumi",
+        ],
+      },
+      venus: {
+        name: "Venus",
+        type: "Planet Terestrial",
+        description:
+          'Planet terpanas dengan atmosfer tebal CO₂. Sering disebut "kembaran Bumi" karena ukurannya yang serupa.',
+        facts: [
+          "Jarak dari Matahari: 108.2 juta km",
+          "Suhu permukaan: 462°C",
+          "Rotasi terbalik (retrograde)",
+          "Tekanan atmosfer: 92x Bumi",
+        ],
+      },
+      earth: {
+        name: "Bumi",
+        type: "Planet Terestrial",
+        description:
+          "Planet ketiga dari Matahari dan satu-satunya yang diketahui memiliki kehidupan. 71% permukaannya tertutup air.",
+        facts: [
+          "Jarak dari Matahari: 149.6 juta km",
+          "Satelit alami: Bulan",
+          "Revolusi: 365.25 hari",
+          "Kehidupan: Ada",
+        ],
+      },
+      mars: {
+        name: "Mars",
+        type: "Planet Terestrial",
+        description:
+          "Planet merah dengan gunung tertinggi di tata surya (Olympus Mons). Memiliki dua bulan kecil: Phobos dan Deimos.",
+        facts: [
+          "Jarak dari Matahari: 227.9 juta km",
+          "Bulan: Phobos & Deimos",
+          "Gunung tertinggi: Olympus Mons",
+          "Misi aktif: Perseverance Rover",
+        ],
+      },
+      jupiter: {
+        name: "Jupiter",
+        type: "Raksasa Gas",
+        description:
+          "Planet terbesar di tata surya dengan Great Red Spot yang merupakan badai raksasa berusia ratusan tahun.",
+        facts: [
+          "Jarak dari Matahari: 778.5 juta km",
+          "Bulan: 79 (terbanyak)",
+          "Great Red Spot: Badai 1.3x Bumi",
+          "Massa: 318x Bumi",
+        ],
+      },
+      saturn: {
+        name: "Saturnus",
+        type: "Raksasa Gas",
+        description:
+          "Planet kedua terbesar dengan sistem cincin yang spektakuler. Cincin terdiri dari miliaran partikel es dan batu.",
+        facts: [
+          "Jarak dari Matahari: 1.43 miliar km",
+          "Bulan: 82",
+          "Cincin: 7 cincin utama",
+          "Kepadatan: < air (bisa mengapung)",
+        ],
+      },
+      uranus: {
+        name: "Uranus",
+        type: "Raksasa Es",
+        description:
+          "Planet yang berotasi miring 98°. Memiliki sistem cincin samar dan berwarna biru-hijau karena metana.",
+        facts: [
+          "Jarak dari Matahari: 2.87 miliar km",
+          "Rotasi: Miring 98°",
+          "Cincin: 13 cincin",
+          "Bulan: 27",
+        ],
+      },
+      neptune: {
+        name: "Neptunus",
+        type: "Raksasa Es",
+        description:
+          "Planet terjauh dari Matahari dengan angin terkuat (2,100 km/jam). Berwarna biru karena metana atmosfer.",
+        facts: [
+          "Jarak dari Matahari: 4.5 miliar km",
+          "Kecepatan angin: 2,100 km/jam",
+          "Bulan: 14 (Triton terbesar)",
+          "Ditemukan: 1846",
+        ],
+      },
+    };
+
+    return planets[planetId];
+  }
+
+  // Initialize when page loads
+  document.addEventListener("DOMContentLoaded", function () {
+    createParticles();
+
+    // Load solar system after a short delay
+    setTimeout(() => {
+      if (typeof THREE !== "undefined") {
+        loadSolarSystem();
+      } else {
+        console.error("Three.js not loaded");
+        document.getElementById("loadingIndicator").innerHTML = `
+          <div class="text-center">
+            <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+            <p class="text-red-300">Three.js gagal dimuat</p>
+            <p class="text-sm text-blue-300 mt-2">Refresh halaman atau coba lagi nanti</p>
+          </div>
+        `;
+      }
+    }, 1000);
+  });
+
+  // Solar System 3D
+  function loadSolarSystem() {
+    console.log("Loading Solar System 3D...");
+
+    try {
+      // Check if Three.js is loaded
+      if (!window.THREE) {
+        throw new Error("Three.js library not loaded");
+      }
+
+      // Get canvas and container
+      const canvas = document.getElementById("solarSystemCanvas");
+      const container = document.getElementById("solarSystemContainer");
+
+      if (!canvas || !container) {
+        throw new Error("Canvas elements not found");
+      }
+
+      // Create scene
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a0e17);
+
+      // Create camera
+      const camera = new THREE.PerspectiveCamera(
+        60,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        2000
+      );
+      camera.position.set(0, 30, 80);
+
+      // Create renderer
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Add lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(5, 5, 5);
+      scene.add(directionalLight);
+
+      // Sun light
+      const sunLight = new THREE.PointLight(0xffaa00, 2, 200);
+      scene.add(sunLight);
+
+      // Add stars background
+      const starGeometry = new THREE.BufferGeometry();
+      const starCount = 2000;
+      const positions = new Float32Array(starCount * 3);
+
+      for (let i = 0; i < starCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 2000;
+        positions[i + 1] = (Math.random() - 0.5) * 2000;
+        positions[i + 2] = (Math.random() - 0.5) * 2000;
+      }
+
+      starGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+      const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.5,
+        sizeAttenuation: true,
+      });
+      const stars = new THREE.Points(starGeometry, starMaterial);
+      scene.add(stars);
+
+      // Create planets - Kecepatan orbit DIPERLAMBAT
+      const planets = {};
+      const planetData = {
+        sun: { 
+          radius: 3, 
+          color: 0xffd700, 
+          orbitRadius: 0, 
+          speed: 0,
+          position: new THREE.Vector3(0, 0, 0)
+        },
+        mercury: {
+          radius: 0.4,
+          color: 0x8c7853,
+          orbitRadius: 12,
+          speed: 0.005, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        venus: {
+          radius: 0.9,
+          color: 0xffa500,
+          orbitRadius: 16,
+          speed: 0.003, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        earth: { 
+          radius: 1, 
+          color: 0x1e90ff, 
+          orbitRadius: 20, 
+          speed: 0.002, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        mars: {
+          radius: 0.5,
+          color: 0xff4500,
+          orbitRadius: 24,
+          speed: 0.0015, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        jupiter: {
+          radius: 2.5,
+          color: 0xdaa520,
+          orbitRadius: 32,
+          speed: 0.0005, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        saturn: {
+          radius: 2.3,
+          color: 0xf0e68c,
+          orbitRadius: 40,
+          speed: 0.0003, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        uranus: {
+          radius: 1.8,
+          color: 0x40e0d0,
+          orbitRadius: 48,
+          speed: 0.0002, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+        neptune: {
+          radius: 1.7,
+          color: 0x4169e1,
+          orbitRadius: 56,
+          speed: 0.0001, // DIPERLAMBAT
+          position: new THREE.Vector3()
+        },
+      };
+
+      // Create sun and planets
+      Object.keys(planetData).forEach((planetName) => {
+        const data = planetData[planetName];
+        const geometry = new THREE.SphereGeometry(data.radius, 32, 32);
+        
+        let material;
+        if (planetName === "sun") {
+          material = new THREE.MeshBasicMaterial({
+            color: data.color,
+            emissive: data.color,
+            emissiveIntensity: 0.8
+          });
+        } else {
+          material = new THREE.MeshStandardMaterial({
+            color: data.color,
+            roughness: 0.8,
+            metalness: 0.2
+          });
+        }
+
+        const planet = new THREE.Mesh(geometry, material);
+        
+        // Set initial position
+        if (planetName !== "sun") {
+          planet.position.x = data.orbitRadius;
+        }
+
+        // Add to scene
+        scene.add(planet);
+
+        // Store planet reference
+        planets[planetName] = {
+          mesh: planet,
+          data: data,
+          angle: Math.random() * Math.PI * 2,
+        };
+
+        // Add orbit ring (except for sun)
+        if (planetName !== "sun" && data.orbitRadius > 0) {
+          const orbitGeometry = new THREE.RingGeometry(
+            data.orbitRadius - 0.2,
+            data.orbitRadius + 0.2,
+            64
+          );
+          const orbitMaterial = new THREE.MeshBasicMaterial({
+            color: 0x4dabff,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.15
+          });
+          const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
+          orbit.rotation.x = Math.PI / 2;
+          scene.add(orbit);
+          planets[planetName].orbit = orbit;
+        }
+      });
+
+      // Add Saturn's rings
+      const saturnRingGeometry = new THREE.RingGeometry(2.8, 4.5, 32);
+      const saturnRingMaterial = new THREE.MeshBasicMaterial({
+        color: 0xf0e68c,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.7
+      });
+      const saturnRing = new THREE.Mesh(
+        saturnRingGeometry,
+        saturnRingMaterial
+      );
+      saturnRing.rotation.x = Math.PI / 2;
+      planets.saturn.mesh.add(saturnRing);
+
+      // Variables for animation
+      let autoRotate = true;
+      let showOrbits = true;
+      let animationId;
+      
+      // Variables for camera tracking - Sensitivitas DIPERLAMBAT
+      let isMouseDown = false;
+      let previousMousePosition = { x: 0, y: 0 };
+      let rotationSpeed = 0.002; // DIPERLAMBAT
+      let isFollowingPlanet = false;
+      let followedPlanet = null;
+      let originalCameraPosition = new THREE.Vector3(0, 30, 80);
+      let originalCameraRotation = new THREE.Euler(0, 0, 0);
+      
+      // Speed control variables
+      const orbitSpeedMultiplier = 0.5; // DIPERLAMBAT
+      const cameraOrbitSpeed = 0.0005; // DIPERLAMBAT
+
+      // Function to focus camera on planet with tracking
+      function focusOnPlanet(planetName) {
+        const planet = planets[planetName];
+        if (!planet) return;
+
+        // Set follow mode
+        isFollowingPlanet = true;
+        followedPlanet = planetName;
+        
+        // Stop auto rotate when following planet
+        autoRotate = false;
+        
+        // Calculate target position (behind and above the planet)
+        const planetPos = planet.mesh.position.clone();
+        const distance = planet.data.radius * 8 + 15; // Distance from planet
+        
+        // Calculate camera position - SMOOTHER
+        const offset = new THREE.Vector3(
+          distance, // X position
+          distance * 0.5, // Y position (slightly above)
+          0 // Z position (in front)
+        );
+        
+        const cameraPos = new THREE.Vector3().addVectors(planetPos, offset);
+
+        // Animate camera movement - SLOWER
+        new TWEEN.Tween(camera.position)
+          .to(cameraPos, 2000) // Slower animation (2 seconds)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          .onUpdate(() => {
+            // Make camera look at planet during animation
+            camera.lookAt(planetPos);
+          })
+          .start();
+
+        // Show planet info
+        showPlanetInfo(planetName);
+        
+        console.log(`Now following: ${planetName}`);
+      }
+
+      // Mouse event for planet selection
+      canvas.addEventListener("click", function (event) {
+        const rect = canvas.getBoundingClientRect();
+        const mouse = {
+          x: ((event.clientX - rect.left) / container.clientWidth) * 2 - 1,
+          y: -((event.clientY - rect.top) / container.clientHeight) * 2 + 1
+        };
+
+        // Raycaster for detecting clicked objects
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera);
+
+        // Check all planets
+        const allPlanets = Object.values(planets).map((p) => p.mesh);
+        const intersects = raycaster.intersectObjects(allPlanets);
+
+        if (intersects.length > 0) {
+          const clickedPlanet = intersects[0].object;
+          const planetName = Object.keys(planets).find(
+            (name) => planets[name].mesh === clickedPlanet
+          );
+
+          if (planetName) {
+            focusOnPlanet(planetName);
+          }
+        } else {
+          // Clicked on empty space - stop following
+          isFollowingPlanet = false;
+          followedPlanet = null;
+        }
+      });
+
+      // Mouse controls for manual rotation - SLOWER
+      canvas.addEventListener("mousedown", function (event) {
+        isMouseDown = true;
+        previousMousePosition = {
+          x: event.clientX,
+          y: event.clientY
+        };
+        canvas.style.cursor = "grabbing";
+        
+        // Stop following when user manually drags
+        isFollowingPlanet = false;
+        followedPlanet = null;
+      });
+
+      canvas.addEventListener("mousemove", function (event) {
+        if (!isMouseDown) return;
+
+        const deltaX = event.clientX - previousMousePosition.x;
+        const deltaY = event.clientY - previousMousePosition.y;
+
+        // Rotate camera around center - SLOWER
+        camera.position.x += deltaX * 0.002; // Reduced from 0.01
+        camera.position.y -= deltaY * 0.002; // Reduced from 0.01
+        
+        // Keep camera looking at center
+        camera.lookAt(0, 0, 0);
+
+        previousMousePosition = {
+          x: event.clientX,
+          y: event.clientY
+        };
+        
+        // Stop auto rotate when manually moving
+        autoRotate = false;
+      });
+
+      canvas.addEventListener("mouseup", function () {
+        isMouseDown = false;
+        canvas.style.cursor = "grab";
+      });
+
+      canvas.addEventListener("mouseleave", function () {
+        isMouseDown = false;
+        canvas.style.cursor = "grab";
+      });
+
+      // Zoom with scroll - SLOWER
+      canvas.addEventListener("wheel", function (event) {
+        event.preventDefault();
+        const zoomSpeed = 0.02; // Reduced from 0.05
+        const zoomDirection = event.deltaY > 0 ? -1 : 1;
+        
+        // Move camera forward/backward
+        const direction = new THREE.Vector3();
+        camera.getWorldDirection(direction);
+        camera.position.addScaledVector(direction, zoomDirection * zoomSpeed * 3); // Reduced from 5
+        
+        // Stop auto rotate when manually zooming
+        autoRotate = false;
+        isFollowingPlanet = false;
+        followedPlanet = null;
+      });
+
+      // Control buttons
+      const btnAutoRotate = document.getElementById("btnAutoRotate");
+      const btnResetView = document.getElementById("btnResetView");
+      const btnToggleOrbits = document.getElementById("btnToggleOrbits");
+
+      btnAutoRotate.addEventListener("click", function () {
+        autoRotate = !autoRotate;
+        isFollowingPlanet = false;
+        followedPlanet = null;
+        this.innerHTML = autoRotate
+          ? '<i class="fas fa-pause"></i> Pause Rotation'
+          : '<i class="fas fa-play"></i> Auto Rotate';
+      });
+
+      btnResetView.addEventListener("click", function () {
+        // Reset camera position - SLOWER
+        new TWEEN.Tween(camera.position)
+          .to(originalCameraPosition, 1500) // Slower reset
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          .start();
+
+        // Reset camera rotation - SLOWER
+        new TWEEN.Tween(camera.rotation)
+          .to(originalCameraRotation, 1500)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          .start();
+
+        // Reset all states
+        autoRotate = true;
+        isFollowingPlanet = false;
+        followedPlanet = null;
+        btnAutoRotate.innerHTML = '<i class="fas fa-pause"></i> Pause Rotation';
+
+        // Hide planet info
+        hidePlanetInfo();
+        
+        console.log("View reset to default");
+      });
+
+      btnToggleOrbits.addEventListener("click", function () {
+        showOrbits = !showOrbits;
+        Object.values(planets).forEach((planet) => {
+          if (planet.orbit) {
+            planet.orbit.visible = showOrbits;
+          }
+        });
+        this.innerHTML = showOrbits
+          ? '<i class="fas fa-eye-slash"></i> Sembunyikan Orbit'
+          : '<i class="fas fa-eye"></i> Tampilkan Orbit';
+      });
+
+      // Animation loop with planet tracking - SLOWER
+      function animate() {
+        animationId = requestAnimationFrame(animate);
+
+        // Update planet positions (orbits) with slower speed
+        Object.keys(planets).forEach((planetName) => {
+          if (planetName === "sun") return;
+
+          const planet = planets[planetName];
+          planet.angle += planet.data.speed * orbitSpeedMultiplier;
+
+          // Calculate orbit position
+          const x = Math.cos(planet.angle) * planet.data.orbitRadius;
+          const z = Math.sin(planet.angle) * planet.data.orbitRadius;
+
+          planet.mesh.position.set(x, 0, z);
+          
+          // Rotate planet on its axis - SLOWER
+          planet.mesh.rotation.y += 0.002; // Reduced from 0.01
+        });
+
+        // Rotate sun - SLOWER
+        planets.sun.mesh.rotation.y += 0.001; // Reduced from 0.005
+        sunLight.position.copy(planets.sun.mesh.position);
+
+        // Rotate stars - SLOWER
+        stars.rotation.y += 0.00005; // Reduced from 0.0001
+
+        // Camera behavior based on mode
+        if (isFollowingPlanet && followedPlanet) {
+          // Following a specific planet - SLOWER orbit
+          const planet = planets[followedPlanet];
+          if (planet) {
+            const planetPos = planet.mesh.position.clone();
+            const distance = planet.data.radius * 8 + 15;
+            
+            // Calculate camera position (slow orbit around the planet)
+            const time = Date.now() * cameraOrbitSpeed; // SLOWER
+            const offset = new THREE.Vector3(
+              Math.sin(time) * distance,
+              distance * 0.3,
+              Math.cos(time) * distance
+            );
+            
+            const targetPos = new THREE.Vector3().addVectors(planetPos, offset);
+            
+            // Very smooth camera movement
+            camera.position.lerp(targetPos, 0.02); // Reduced from 0.05
+            camera.lookAt(planetPos);
+          }
+        } else if (autoRotate) {
+          // Auto rotate around solar system - SLOWER
+          const time = Date.now() * 0.00005; // Reduced from 0.0001
+          camera.position.x = Math.sin(time) * 80;
+          camera.position.z = Math.cos(time) * 80;
+          camera.lookAt(0, 0, 0);
+        }
+        // If neither, camera stays where user left it (manual mode)
+
+        // Update TWEEN
+        TWEEN.update();
+
+        // Render scene
+        renderer.render(scene, camera);
+      }
+
+      // Handle window resize
+      function onWindowResize() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+
+      window.addEventListener("resize", onWindowResize);
+
+      // Start animation
+      animate();
+
+      // Hide loading indicator
+      setTimeout(() => {
+        document.getElementById("loadingIndicator").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("loadingIndicator").style.display = "none";
+        }, 500);
+      }, 2000);
+
+      // Expose functions to window
+      window.solarSystem = {
+        focusOnPlanet: function (planetId) {
+          focusOnPlanet(planetId);
+        },
+        resetView: function () {
+          btnResetView.click();
+        },
+        scene: scene,
+        camera: camera,
+        planets: planets
+      };
+
+      console.log("Solar System 3D loaded successfully with slower movements");
+
+    } catch (error) {
+      console.error("Error loading solar system:", error);
+      document.getElementById("loadingIndicator").innerHTML = `
+        <div class="text-center">
+          <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+          <p class="text-red-300">Gagal memuat visualisasi 3D</p>
+          <p class="text-sm text-blue-300 mt-2">${error.message}</p>
+          <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-primary-blue/30 text-primary-blue rounded-lg hover:bg-primary-blue/40 transition-colors">
+            Coba Lagi
+          </button>
+        </div>
+      `;
+    }
+  }
+</script>
+  </body>
 </html>
