@@ -147,6 +147,21 @@
           border: 1px solid rgba(77, 171, 255, 0.2);
         }
       }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1a2238;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4dabff;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #9d4edd;
+      }
     </style>
   </head>
   <body class="bg-space-blue text-text-light min-h-screen">
@@ -156,7 +171,7 @@
       class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]"
     ></div>
 
-    <!-- Header & Navigation (SAMA DENGAN index.html) -->
+    <!-- Header & Navigation -->
     <header
       class="sticky top-0 z-50 bg-gradient-to-b from-space-blue/95 to-space-blue/85 backdrop-blur-lg border-b border-primary-blue/20 py-5"
     >
@@ -432,7 +447,7 @@
         </div>
       </div>
 
-      <!-- Planet Information -->
+      <!-- Planet Information Cards -->
       <div class="grid md:grid-cols-2 gap-8 mb-12">
         <div
           class="bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
@@ -595,7 +610,7 @@
 
       <!-- Facts Section -->
       <div
-        class="bg-space-light/50 rounded-xl border border-primary-blue/20 p-6 md:p-8"
+        class="bg-space-light/50 rounded-xl border border-primary-blue/20 p-6 md:p-8 mb-12"
       >
         <h3 class="font-orbitron text-2xl text-primary-blue mb-6 text-center">
           <i class="fas fa-lightbulb text-yellow-400 mr-2"></i> Fakta Menarik
@@ -648,9 +663,671 @@
           </div>
         </div>
       </div>
+
+      <!-- Detail Lengkap Planet -->
+      <section class="mt-16">
+        <h2 class="font-orbitron text-3xl text-primary-blue mb-8 text-center">
+          <i class="fas fa-info-circle mr-2"></i>Detail Lengkap Planet
+        </h2>
+
+        <!-- Matahari -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-yellow-400 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-sun"></i> Matahari
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Matahari adalah bintang pusat tata surya kita. Semua planet,
+                asteroid, dan komet mengorbit mengelilinginya.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jenis:</span
+                  >
+                  <span class="text-blue-100">Bintang</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">±1.392.700 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu permukaan:</span
+                  >
+                  <span class="text-blue-100">±5.500 ℃</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Tersusun dari:</span
+                  >
+                  <span class="text-blue-100">Hidrogen & Helium</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Peran:</span
+                  >
+                  <span class="text-blue-100"
+                    >Pusat tata surya, sumber energi</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100"
+                    >±25-35 hari (berbeda di tiap bagian)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Merkurius -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-gray-400 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Merkurius
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet terkecil dan terdekat dengan Matahari. Permukaannya
+                dipenuhi kawah akibat tabrakan asteroid.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">57,9 juta km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">4.879 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">59 hari Bumi</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">88 hari bumi</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Atmosfer:</span
+                  >
+                  <span class="text-blue-100"
+                    >Sangat tipis (oksigen, natrium)</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu:</span
+                  >
+                  <span class="text-blue-100">-180℃ sampai 430℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100">Tidak ada</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Planet terkecil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Venus -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-yellow-300 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Venus
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet terpanas dengan atmosfer tebal CO₂. Sering disebut
+                "kembaran Bumi" karena ukurannya yang serupa.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">108,2 juta km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">12.104 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100"
+                    >243 hari bumi (terlama & terbalik)</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">225 hari bumi</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Atmosfer:</span
+                  >
+                  <span class="text-blue-100"
+                    >Karbon dioksida sangat tebal</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu:</span
+                  >
+                  <span class="text-blue-100">±465℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100">Tidak ada</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Planet terpanas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bumi -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-blue-400 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-globe-americas"></i> Bumi
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet ketiga dari Matahari dan satu-satunya yang diketahui
+                memiliki kehidupan. 71% permukaannya tertutup air.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">149,6 juta km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">12.742 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">24 jam</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">365,25 hari</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Atmosfer:</span
+                  >
+                  <span class="text-blue-100">Nitrogen, oksigen</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu rata-rata:</span
+                  >
+                  <span class="text-blue-100">±15℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100">1 (Bulan)</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Mendukung kehidupan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mars -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-red-400 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Mars
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet merah dengan gunung tertinggi di tata surya (Olympus
+                Mons). Memiliki dua bulan kecil: Phobos dan Deimos.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">227,9 juta km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">6.779 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">24,6 jam</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">687 hari</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Atmosfer:</span
+                  >
+                  <span class="text-blue-100">Karbon dioksida tipis</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu:</span
+                  >
+                  <span class="text-blue-100">-125℃ sampai 20℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100">2 (Phobos, Deimos)</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Planet merah</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jupiter -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-amber-400 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Jupiter
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet terbesar di tata surya dengan Great Red Spot yang
+                merupakan badai raksasa berusia ratusan tahun.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">778,5 juta km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">139.820 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">9 jam 56 menit</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">11,86 tahun</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Tersusun dari:</span
+                  >
+                  <span class="text-blue-100">Hidrogen & Helium</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu awan:</span
+                  >
+                  <span class="text-blue-100">±-110℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Planet terbesar</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saturnus -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-yellow-200 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Saturnus
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet kedua terbesar dengan sistem cincin yang spektakuler.
+                Cincin terdiri dari miliaran partikel es dan batu.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">1,43 milliar km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">116.460 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">10 jam 33 menit</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">29,5 tahun</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Tersusun dari:</span
+                  >
+                  <span class="text-blue-100">Hidrogen & Helium</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu:</span
+                  >
+                  <span class="text-blue-100">±-140℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100">>80 (Titan, Enceladus)</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Cincin paling jelas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Uranus -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-teal-300 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Uranus
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet yang berotasi miring 98°. Memiliki sistem cincin samar
+                dan berwarna biru-hijau karena metana.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">2,87 milliar km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">50.724 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">17 jam (miring ±98°)</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">84 tahun</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Tersusun dari:</span
+                  >
+                  <span class="text-blue-100"
+                    >Es, hidrogen, helium, metana</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu:</span
+                  >
+                  <span class="text-blue-100">±-224℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100"
+                    >27 (Titania, Oberon, Umbriel)</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Planet terguling</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Neptunus -->
+        <div
+          class="mb-10 bg-space-light/30 p-6 rounded-xl border border-primary-blue/10"
+        >
+          <h3
+            class="font-orbitron text-2xl text-blue-300 mb-4 flex items-center gap-2"
+          >
+            <i class="fas fa-circle"></i> Neptunus
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-blue-100 mb-4">
+                Planet terjauh dari Matahari dengan angin terkuat (2,100
+                km/jam). Berwarna biru karena metana atmosfer.
+              </p>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Jarak dari matahari:</span
+                  >
+                  <span class="text-blue-100">4,5 milliar km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Diameter:</span
+                  >
+                  <span class="text-blue-100">49.224 km</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu rotasi:</span
+                  >
+                  <span class="text-blue-100">16 jam</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Waktu revolusi:</span
+                  >
+                  <span class="text-blue-100">164,8 tahun</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Tersusun dari:</span
+                  >
+                  <span class="text-blue-100"
+                    >Es, hidrogen, helium, metana</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Suhu:</span
+                  >
+                  <span class="text-blue-100">±-214℃</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Satelit:</span
+                  >
+                  <span class="text-blue-100">14 (Triton)</span>
+                </div>
+                <div class="flex">
+                  <span class="w-48 font-semibold text-primary-blue"
+                    >Ciri khusus:</span
+                  >
+                  <span class="text-blue-100">Memiliki angin tercepat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <!-- Footer (SAMA DENGAN index.html) -->
+    <!-- Footer -->
     <footer
       class="mt-20 bg-gradient-to-t from-space-blue to-space-light/50 border-t border-primary-blue/20 pt-16 pb-8 md:pl-10"
     >
@@ -920,10 +1597,12 @@
             description:
               "Bintang pusat tata surya kita. Menyediakan 99.86% massa total sistem dan sumber energi utama bagi kehidupan di Bumi.",
             facts: [
-              "Usia: 4.6 miliar tahun",
-              "Suhu inti: 15 juta °C",
-              "Komposisi: 74% Hidrogen, 24% Helium",
-              "Diameter: 1.39 juta km",
+              "Jenis: Bintang",
+              "Diameter: ±1.392.700 km",
+              "Suhu permukaan: ±5.500 ℃",
+              "Tersusun dari: Hidrogen & Helium",
+              "Peran: Pusat tata surya, sumber energi",
+              "Waktu rotasi: ±25-35 hari (berbeda di tiap bagian)",
             ],
           },
           mercury: {
@@ -932,10 +1611,14 @@
             description:
               "Planet terkecil dan terdekat dengan Matahari. Memiliki permukaan berbatu dengan banyak kawah.",
             facts: [
-              "Jarak dari Matahari: 57.9 juta km",
-              "Suhu: -173°C hingga 427°C",
-              "Tidak memiliki satelit alami",
-              "Revolusi: 88 hari Bumi",
+              "Jarak dari matahari: 57,9 juta km",
+              "Diameter: 4.879 km",
+              "Waktu rotasi: 59 hari Bumi",
+              "Waktu revolusi: 88 hari bumi",
+              "Atmosfer: Sangat tipis (oksigen, natrium)",
+              "Suhu: -180℃ sampai 430℃",
+              "Satelit: Tidak ada",
+              "Ciri khusus: Planet terkecil",
             ],
           },
           venus: {
@@ -944,10 +1627,14 @@
             description:
               'Planet terpanas dengan atmosfer tebal CO₂. Sering disebut "kembaran Bumi" karena ukurannya yang serupa.',
             facts: [
-              "Jarak dari Matahari: 108.2 juta km",
-              "Suhu permukaan: 462°C",
-              "Rotasi terbalik (retrograde)",
-              "Tekanan atmosfer: 92x Bumi",
+              "Jarak dari matahari: 108,2 juta km",
+              "Diameter: 12.104 km",
+              "Waktu rotasi: 243 hari bumi (terlama & terbalik)",
+              "Waktu revolusi: 225 hari bumi",
+              "Atmosfer: Karbon dioksida sangat tebal",
+              "Suhu: ±465℃",
+              "Satelit: Tidak ada",
+              "Ciri khusus: Planet terpanas",
             ],
           },
           earth: {
@@ -956,10 +1643,14 @@
             description:
               "Planet ketiga dari Matahari dan satu-satunya yang diketahui memiliki kehidupan. 71% permukaannya tertutup air.",
             facts: [
-              "Jarak dari Matahari: 149.6 juta km",
-              "Satelit alami: Bulan",
-              "Revolusi: 365.25 hari",
-              "Kehidupan: Ada",
+              "Jarak dari matahari: 149,6 juta km",
+              "Diameter: 12.742 km",
+              "Waktu rotasi: 24 jam",
+              "Waktu revolusi: 365,25 hari",
+              "Atmosfer: Nitrogen, oksigen",
+              "Suhu rata-rata: ±15℃",
+              "Satelit: 1 (Bulan)",
+              "Ciri khusus: Mendukung kehidupan",
             ],
           },
           mars: {
@@ -968,10 +1659,14 @@
             description:
               "Planet merah dengan gunung tertinggi di tata surya (Olympus Mons). Memiliki dua bulan kecil: Phobos dan Deimos.",
             facts: [
-              "Jarak dari Matahari: 227.9 juta km",
-              "Bulan: Phobos & Deimos",
-              "Gunung tertinggi: Olympus Mons",
-              "Misi aktif: Perseverance Rover",
+              "Jarak dari matahari: 227,9 juta km",
+              "Diameter: 6.779 km",
+              "Waktu rotasi: 24,6 jam",
+              "Waktu revolusi: 687 hari",
+              "Atmosfer: Karbon dioksida tipis",
+              "Suhu: -125℃ sampai 20℃",
+              "Satelit: 2 (Phobos, Deimos)",
+              "Ciri khusus: Planet merah",
             ],
           },
           jupiter: {
@@ -980,10 +1675,13 @@
             description:
               "Planet terbesar di tata surya dengan Great Red Spot yang merupakan badai raksasa berusia ratusan tahun.",
             facts: [
-              "Jarak dari Matahari: 778.5 juta km",
-              "Bulan: 79 (terbanyak)",
-              "Great Red Spot: Badai 1.3x Bumi",
-              "Massa: 318x Bumi",
+              "Jarak dari matahari: 778,5 juta km",
+              "Diameter: 139.820 km",
+              "Waktu rotasi: 9 jam 56 menit",
+              "Waktu revolusi: 11,86 tahun",
+              "Tersusun dari: Hidrogen & Helium",
+              "Suhu awan: ±-110℃",
+              "Ciri khusus: Planet terbesar",
             ],
           },
           saturn: {
@@ -992,10 +1690,14 @@
             description:
               "Planet kedua terbesar dengan sistem cincin yang spektakuler. Cincin terdiri dari miliaran partikel es dan batu.",
             facts: [
-              "Jarak dari Matahari: 1.43 miliar km",
-              "Bulan: 82",
-              "Cincin: 7 cincin utama",
-              "Kepadatan: < air (bisa mengapung)",
+              "Jarak dari matahari: 1,43 milliar km",
+              "Diameter: 116.460 km",
+              "Waktu rotasi: 10 jam 33 menit",
+              "Waktu revolusi: 29,5 tahun",
+              "Tersusun dari: Hidrogen & Helium",
+              "Suhu: ±-140℃",
+              "Satelit: >80 (Titan, Enceladus)",
+              "Ciri khusus: Cincin paling jelas",
             ],
           },
           uranus: {
@@ -1004,10 +1706,14 @@
             description:
               "Planet yang berotasi miring 98°. Memiliki sistem cincin samar dan berwarna biru-hijau karena metana.",
             facts: [
-              "Jarak dari Matahari: 2.87 miliar km",
-              "Rotasi: Miring 98°",
-              "Cincin: 13 cincin",
-              "Bulan: 27",
+              "Jarak dari matahari: 2,87 milliar km",
+              "Diameter: 50.724 km",
+              "Waktu rotasi: 17 jam (miring ±98°)",
+              "Waktu revolusi: 84 tahun",
+              "Tersusun dari: Es, hidrogen, helium, metana",
+              "Suhu: ±-224℃",
+              "Satelit: 27 (Titania, Oberon, Umbriel)",
+              "Ciri khusus: Planet terguling",
             ],
           },
           neptune: {
@@ -1016,10 +1722,14 @@
             description:
               "Planet terjauh dari Matahari dengan angin terkuat (2,100 km/jam). Berwarna biru karena metana atmosfer.",
             facts: [
-              "Jarak dari Matahari: 4.5 miliar km",
-              "Kecepatan angin: 2,100 km/jam",
-              "Bulan: 14 (Triton terbesar)",
-              "Ditemukan: 1846",
+              "Jarak dari matahari: 4,5 milliar km",
+              "Diameter: 49.224 km",
+              "Waktu rotasi: 16 jam",
+              "Waktu revolusi: 164,8 tahun",
+              "Tersusun dari: Es, hidrogen, helium, metana",
+              "Suhu: ±-214℃",
+              "Satelit: 14 (Triton)",
+              "Ciri khusus: Memiliki angin tercepat",
             ],
           },
         };
@@ -1123,7 +1833,7 @@
           const stars = new THREE.Points(starGeometry, starMaterial);
           scene.add(stars);
 
-          // Create planets - Kecepatan orbit DIPERLAMBAT
+          // Create planets
           const planets = {};
           const planetData = {
             sun: {
@@ -1137,56 +1847,56 @@
               radius: 0.4,
               color: 0x8c7853,
               orbitRadius: 12,
-              speed: 0.005, // DIPERLAMBAT
+              speed: 0.005,
               position: new THREE.Vector3(),
             },
             venus: {
               radius: 0.9,
               color: 0xffa500,
               orbitRadius: 16,
-              speed: 0.003, // DIPERLAMBAT
+              speed: 0.003,
               position: new THREE.Vector3(),
             },
             earth: {
               radius: 1,
               color: 0x1e90ff,
               orbitRadius: 20,
-              speed: 0.002, // DIPERLAMBAT
+              speed: 0.002,
               position: new THREE.Vector3(),
             },
             mars: {
               radius: 0.5,
               color: 0xff4500,
               orbitRadius: 24,
-              speed: 0.0015, // DIPERLAMBAT
+              speed: 0.0015,
               position: new THREE.Vector3(),
             },
             jupiter: {
               radius: 2.5,
               color: 0xdaa520,
               orbitRadius: 32,
-              speed: 0.0005, // DIPERLAMBAT
+              speed: 0.0005,
               position: new THREE.Vector3(),
             },
             saturn: {
               radius: 2.3,
               color: 0xf0e68c,
               orbitRadius: 40,
-              speed: 0.0003, // DIPERLAMBAT
+              speed: 0.0003,
               position: new THREE.Vector3(),
             },
             uranus: {
               radius: 1.8,
               color: 0x40e0d0,
               orbitRadius: 48,
-              speed: 0.0002, // DIPERLAMBAT
+              speed: 0.0002,
               position: new THREE.Vector3(),
             },
             neptune: {
               radius: 1.7,
               color: 0x4169e1,
               orbitRadius: 56,
-              speed: 0.0001, // DIPERLAMBAT
+              speed: 0.0001,
               position: new THREE.Vector3(),
             },
           };
@@ -1268,18 +1978,18 @@
           let showOrbits = true;
           let animationId;
 
-          // Variables for camera tracking - Sensitivitas DIPERLAMBAT
+          // Variables for camera tracking
           let isMouseDown = false;
           let previousMousePosition = { x: 0, y: 0 };
-          let rotationSpeed = 0.002; // DIPERLAMBAT
+          let rotationSpeed = 0.002;
           let isFollowingPlanet = false;
           let followedPlanet = null;
           let originalCameraPosition = new THREE.Vector3(0, 30, 80);
           let originalCameraRotation = new THREE.Euler(0, 0, 0);
 
           // Speed control variables
-          const orbitSpeedMultiplier = 0.5; // DIPERLAMBAT
-          const cameraOrbitSpeed = 0.0005; // DIPERLAMBAT
+          const orbitSpeedMultiplier = 0.5;
+          const cameraOrbitSpeed = 0.0005;
 
           // Function to focus camera on planet with tracking
           function focusOnPlanet(planetName) {
@@ -1295,23 +2005,18 @@
 
             // Calculate target position (behind and above the planet)
             const planetPos = planet.mesh.position.clone();
-            const distance = planet.data.radius * 8 + 15; // Distance from planet
+            const distance = planet.data.radius * 8 + 15;
 
-            // Calculate camera position - SMOOTHER
-            const offset = new THREE.Vector3(
-              distance, // X position
-              distance * 0.5, // Y position (slightly above)
-              0, // Z position (in front)
-            );
+            // Calculate camera position
+            const offset = new THREE.Vector3(distance, distance * 0.5, 0);
 
             const cameraPos = new THREE.Vector3().addVectors(planetPos, offset);
 
-            // Animate camera movement - SLOWER
+            // Animate camera movement
             new TWEEN.Tween(camera.position)
-              .to(cameraPos, 2000) // Slower animation (2 seconds)
+              .to(cameraPos, 2000)
               .easing(TWEEN.Easing.Quadratic.InOut)
               .onUpdate(() => {
-                // Make camera look at planet during animation
                 camera.lookAt(planetPos);
               })
               .start();
@@ -1357,7 +2062,7 @@
             }
           });
 
-          // Mouse controls for manual rotation - SLOWER
+          // Mouse controls for manual rotation
           canvas.addEventListener("mousedown", function (event) {
             isMouseDown = true;
             previousMousePosition = {
@@ -1377,9 +2082,9 @@
             const deltaX = event.clientX - previousMousePosition.x;
             const deltaY = event.clientY - previousMousePosition.y;
 
-            // Rotate camera around center - SLOWER
-            camera.position.x += deltaX * 0.002; // Reduced from 0.01
-            camera.position.y -= deltaY * 0.002; // Reduced from 0.01
+            // Rotate camera around center
+            camera.position.x += deltaX * 0.002;
+            camera.position.y -= deltaY * 0.002;
 
             // Keep camera looking at center
             camera.lookAt(0, 0, 0);
@@ -1403,10 +2108,10 @@
             canvas.style.cursor = "grab";
           });
 
-          // Zoom with scroll - SLOWER
+          // Zoom with scroll
           canvas.addEventListener("wheel", function (event) {
             event.preventDefault();
-            const zoomSpeed = 0.02; // Reduced from 0.05
+            const zoomSpeed = 0.02;
             const zoomDirection = event.deltaY > 0 ? -1 : 1;
 
             // Move camera forward/backward
@@ -1415,7 +2120,7 @@
             camera.position.addScaledVector(
               direction,
               zoomDirection * zoomSpeed * 3,
-            ); // Reduced from 5
+            );
 
             // Stop auto rotate when manually zooming
             autoRotate = false;
@@ -1438,13 +2143,13 @@
           });
 
           btnResetView.addEventListener("click", function () {
-            // Reset camera position - SLOWER
+            // Reset camera position
             new TWEEN.Tween(camera.position)
-              .to(originalCameraPosition, 1500) // Slower reset
+              .to(originalCameraPosition, 1500)
               .easing(TWEEN.Easing.Quadratic.InOut)
               .start();
 
-            // Reset camera rotation - SLOWER
+            // Reset camera rotation
             new TWEEN.Tween(camera.rotation)
               .to(originalCameraRotation, 1500)
               .easing(TWEEN.Easing.Quadratic.InOut)
@@ -1475,11 +2180,11 @@
               : '<i class="fas fa-eye"></i> Tampilkan Orbit';
           });
 
-          // Animation loop with planet tracking - SLOWER
+          // Animation loop with planet tracking
           function animate() {
             animationId = requestAnimationFrame(animate);
 
-            // Update planet positions (orbits) with slower speed
+            // Update planet positions (orbits)
             Object.keys(planets).forEach((planetName) => {
               if (planetName === "sun") return;
 
@@ -1492,27 +2197,27 @@
 
               planet.mesh.position.set(x, 0, z);
 
-              // Rotate planet on its axis - SLOWER
-              planet.mesh.rotation.y += 0.002; // Reduced from 0.01
+              // Rotate planet on its axis
+              planet.mesh.rotation.y += 0.002;
             });
 
-            // Rotate sun - SLOWER
-            planets.sun.mesh.rotation.y += 0.001; // Reduced from 0.005
+            // Rotate sun
+            planets.sun.mesh.rotation.y += 0.001;
             sunLight.position.copy(planets.sun.mesh.position);
 
-            // Rotate stars - SLOWER
-            stars.rotation.y += 0.00005; // Reduced from 0.0001
+            // Rotate stars
+            stars.rotation.y += 0.00005;
 
             // Camera behavior based on mode
             if (isFollowingPlanet && followedPlanet) {
-              // Following a specific planet - SLOWER orbit
+              // Following a specific planet
               const planet = planets[followedPlanet];
               if (planet) {
                 const planetPos = planet.mesh.position.clone();
                 const distance = planet.data.radius * 8 + 15;
 
                 // Calculate camera position (slow orbit around the planet)
-                const time = Date.now() * cameraOrbitSpeed; // SLOWER
+                const time = Date.now() * cameraOrbitSpeed;
                 const offset = new THREE.Vector3(
                   Math.sin(time) * distance,
                   distance * 0.3,
@@ -1524,18 +2229,17 @@
                   offset,
                 );
 
-                // Very smooth camera movement
-                camera.position.lerp(targetPos, 0.02); // Reduced from 0.05
+                // Smooth camera movement
+                camera.position.lerp(targetPos, 0.02);
                 camera.lookAt(planetPos);
               }
             } else if (autoRotate) {
-              // Auto rotate around solar system - SLOWER
-              const time = Date.now() * 0.00005; // Reduced from 0.0001
+              // Auto rotate around solar system
+              const time = Date.now() * 0.00005;
               camera.position.x = Math.sin(time) * 80;
               camera.position.z = Math.cos(time) * 80;
               camera.lookAt(0, 0, 0);
             }
-            // If neither, camera stays where user left it (manual mode)
 
             // Update TWEEN
             TWEEN.update();
@@ -1578,9 +2282,7 @@
             planets: planets,
           };
 
-          console.log(
-            "Solar System 3D loaded successfully with slower movements",
-          );
+          console.log("Solar System 3D loaded successfully");
         } catch (error) {
           console.error("Error loading solar system:", error);
           document.getElementById("loadingIndicator").innerHTML = `
